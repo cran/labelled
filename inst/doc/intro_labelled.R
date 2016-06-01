@@ -65,33 +65,6 @@ val_labels(df) <- list(v1 = c(yes = 1, no = 3), v2 = c(a = 1, b = 2, c = 3))
 val_labels(df)
 
 ## ------------------------------------------------------------------------
-v <- labelled(c(1,2,2,2,3,9,1,3,2,NA), c(yes = 1, no = 3, "don't know" = 8, refused = 9), c(FALSE, FALSE, TRUE, TRUE))
-v
-
-## ------------------------------------------------------------------------
-missing_val(v)
-missing_val(v) <- 9
-v
-missing_val(v) <- NULL
-v
-missing_val(v) <- c(8, 9)
-v
-
-## ---- eval=FALSE---------------------------------------------------------
-#  missing_val(v) <- c(7, 8, 9)
-
-## ------------------------------------------------------------------------
-missing_val(v, force = FALSE) <- c(7, 8, 9)
-v
-missing_val(v, force = TRUE) <- c(7, 8, 9)
-v
-
-## ------------------------------------------------------------------------
-missing_val(v)
-val_label(v, 7) <- NULL
-missing_val(v)
-
-## ------------------------------------------------------------------------
 v <- c(1,2,2,2,3,9,1,3,2,NA)
 val_label(v, 1) <- "yes"
 val_label(v, 3) <- "no"
@@ -108,11 +81,8 @@ sort_val_labels(v, decreasing = TRUE)
 sort_val_labels(v, according_to = "l")
 
 ## ------------------------------------------------------------------------
-v <- labelled(c(1,2,2,2,3,9,1,3,2,NA), c(yes = 1, no = 3, "don't know" = 8, refused = 9), c(FALSE, FALSE, TRUE, TRUE))
+v <- labelled(c(1,2,2,2,3,9,1,3,2,NA), c(yes = 1, maybe = 2, no = 3))
 v
-missing_to_na(v)
-
-## ------------------------------------------------------------------------
 nolabel_to_na(v)
 
 ## ------------------------------------------------------------------------
@@ -123,7 +93,7 @@ size
 val_labels_to_na(size)
 
 ## ------------------------------------------------------------------------
-v <- labelled(c(1,2,2,2,3,9,1,3,2,NA), c(yes = 1, no = 3, "don't know" = 8, refused = 9), c(FALSE, FALSE, TRUE, TRUE))
+v <- labelled(c(1,2,2,2,3,9,1,3,2,NA), c(yes = 1, no = 3, "don't know" = 8, refused = 9))
 v
 to_factor(v)
 
@@ -135,8 +105,8 @@ to_factor(v, levels = "p")
 to_factor(v, ordered = TRUE)
 
 ## ------------------------------------------------------------------------
-to_factor(v, missing_to_na = TRUE)
-to_factor(missing_to_na(v))
+to_factor(v, nolabel_to_na = TRUE)
+to_factor(nolabel_to_na(v))
 
 ## ------------------------------------------------------------------------
 to_factor(v, sort_levels = "n")

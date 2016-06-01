@@ -79,29 +79,10 @@ val_labels.data.frame <- function(x, prefixed = FALSE) {
 `val_labels<-.labelled` <- function(x, value) {
   if (is.null(value)) {
     x <- unclass(x)
-    attr(x, "labels") <- NULL
-    attr(x, "is_na") <- NULL
-
+    .setattr(x, "labels", NULL)
   } else {
-    if (mode(value) != mode(x))
-      stop("`x` and `value` must be same type", call. = FALSE,
-        domain = "R-labelled")
-    if (typeof(value) != typeof(x))
-      mode(value) <- typeof(x)
-    if (is.null(names(value)))
-      stop("`value` must be a named vector", call. = FALSE,
-        domain = "R-labelled")
-    if (length(value) != length(unique(value)))
-      stop("each value should be unique", call. = FALSE,
-        domain = "R-labelled")
-    if (any(!missing_val(x) %in% value)) {
-      rm_missing_val <- missing_val(x)[!missing_val(x) %in%
-        value]
-    }
-    attr(x, "is_na") <- value %in% missing_val(x)  # changing is_na before labels
-    attr(x, "labels") <- value
+    x <- labelled(x, value)
   }
-
   x
 }
 
@@ -152,9 +133,15 @@ val_label.labelled <- function(x, v, prefixed = FALSE) {
   if (length(v) != 1)
     stop("`v` should be a single value", call. = FALSE, domain = "R-labelled")
   labels <- val_labels(x)
-  if (v %in% labels)
-    if (prefixed)
-      paste0("[", v, "] ", names(labels)[labels == v]) else names(labels)[labels == v] else NULL
+  if (v %in% labels) {
+    if (prefixed) {
+      paste0("[", v, "] ", names(labels)[labels == v])
+    } else {
+      names(labels)[labels == v]
+    }
+  } else {
+    NULL
+  }
 }
 
 #' @rdname val_labels
@@ -274,7 +261,8 @@ sort_val_labels.labelled <- function(x, according_to = c("values",
   labels <- val_labels(x)
   if (!is.null(labels)) {
     if (according_to == "values")
-      labels <- sort(labels, decreasing = decreasing) else if (according_to == "labels")
+      labels <- sort(labels, decreasing = decreasing)
+    if (according_to == "labels")
       labels <- labels[order(names(labels), decreasing = decreasing)]
     val_labels(x) <- labels
   }

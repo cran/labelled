@@ -94,13 +94,16 @@ foreign_to_labelled <- function(x) {
   variable.labels <- attr(x, "variable.labels", exact = TRUE)  # read.spss
   var.labels <- attr(x, "var.labels", exact = TRUE)  # read.dta
   label.table <- attr(x, "label.table", exact = TRUE)  # read.dta
-  missings <- attr(x, "missings", exact = TRUE)  # read.spss
+  #missings <- attr(x, "missings", exact = TRUE)  # read.spss
 
   # if imported with read.spss(to.data.frame=FALSE) it's a
   # list, not a df
   if (!is.data.frame(x)) {
-    if (requireNamespace("dplyr"))
-      x <- dplyr::as_data_frame(x) else x <- as.data.frame(x, stringsAsFactors = FALSE)
+    if (requireNamespace("dplyr")) {
+      x <- dplyr::as_data_frame(x)
+    } else {
+      x <- as.data.frame(x, stringsAsFactors = FALSE)
+    }
   }
 
   # variable labels (read.spss)
@@ -118,7 +121,7 @@ foreign_to_labelled <- function(x) {
     if (!is.null(attr(x[[var]], "value.labels", exact = TRUE)))
       val_labels(x[[var]]) <- attr(x[[var]], "value.labels",
         exact = TRUE)
-    attr(x[[var]], "value.labels") <- NULL
+    .setattr(x[[var]], "value.labels", NULL)
   }
 
   # value labels (read.dta)
@@ -126,33 +129,33 @@ foreign_to_labelled <- function(x) {
     val_labels(x) <- label.table
 
   # missing values (read.spss)
-  for (var in names(missings)) {
-    if (missings[[var]]$type %in% c("one", "two", "three")) {
-      missing_val(x[[var]], force = TRUE) <- missings[[var]]$value
-    }
-    if (missings[[var]]$type %in% c("range", "range+1")) {
-      m <- unique(x[[var]])
-      m <- m[m >= missings[[var]]$value[1] & m <= missings[[var]]$value[2]]
-      missing_val(x[[var]], force = TRUE) <- m
-    }
-    if (missings[[var]]$type == "range+1") {
-      missing_val(x[[var]], force = TRUE) <- missings[[var]]$value[3]
-    }
-  }
+  # for (var in names(missings)) {
+  #   if (missings[[var]]$type %in% c("one", "two", "three")) {
+  #     missing_val(x[[var]], force = TRUE) <- missings[[var]]$value
+  #   }
+  #   if (missings[[var]]$type %in% c("range", "range+1")) {
+  #     m <- unique(x[[var]])
+  #     m <- m[m >= missings[[var]]$value[1] & m <= missings[[var]]$value[2]]
+  #     missing_val(x[[var]], force = TRUE) <- m
+  #   }
+  #   if (missings[[var]]$type == "range+1") {
+  #     missing_val(x[[var]], force = TRUE) <- missings[[var]]$value[3]
+  #   }
+  # }
 
   # cleaning read.spss
-  attr(x, "variable.labels") <- NULL
-  attr(x, "missings") <- NULL
+  .setattr(x, "variable.labels", NULL)
+  .setattr(x, "missings", NULL)
   # cleaning read.dta
-  attr(x, "datalabel") <- NULL
-  attr(x, "time.stamp") <- NULL
-  attr(x, "formats") <- NULL
-  attr(x, "types") <- NULL
-  attr(x, "val.labels") <- NULL
-  attr(x, "var.labels") <- NULL
-  attr(x, "version") <- NULL
-  attr(x, "label.table") <- NULL
-  attr(x, "missing") <- NULL
+  .setattr(x, "datalabel", NULL)
+  .setattr(x, "time.stamp", NULL)
+  .setattr(x, "formats", NULL)
+  .setattr(x, "types", NULL)
+  .setattr(x, "val.labels", NULL)
+  .setattr(x, "var.labels", NULL)
+  .setattr(x, "version", NULL)
+  .setattr(x, "label.table", NULL)
+  .setattr(x, "missing", NULL)
   # to tbl_df (if no other class already specified)
   if (length(class(x)) == 1)
     class(x) <- c("tbl_df", "tbl", "data.frame")
@@ -178,8 +181,7 @@ memisc_to_labelled <- function(x) {
       names(labs) <- memisc::labels(x[[var]])@.Data
       val_labels(df[[var]]) <- labs
     }
-    missing_val(df[[var]]) <- unique(df[memisc::is.missing(x[[var]]),
-      var])
+    #missing_val(df[[var]]) <- unique(df[memisc::is.missing(x[[var]]), var])
   }
 
   unloadNamespace("memisc")
