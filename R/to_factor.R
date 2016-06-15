@@ -20,7 +20,10 @@ to_factor.factor <- function(x, ...) {
 #' @rdname to_factor
 #' @export
 to_factor.default <- function(x, ...) {
-  as.factor(x)
+  vl <- var_label(x)
+  x <- as.factor(x)
+  var_label(x) <- vl
+  x
 }
 
 #' @rdname to_factor
@@ -28,7 +31,8 @@ to_factor.default <- function(x, ...) {
 #' @param ordered \code{TRUE} for ordinal factors, \code{FALSE} (default) for nominal factors.
 #' @param nolabel_to_na Should values with no label be converted to `NA`?
 #' @param sort_levels How the factor levels should be sorted? (see Details)
-#' @param decreasing Sould levels be sorted in decreasing order?
+#' @param decreasing Should levels be sorted in decreasing order?
+#' @param drop_unused_labels Should unused value labels be dropped?
 #' @details
 #'   If some values doesn't have a label, automatic labels will be created, except if
 #'   \code{nolabel_to_na} is \code{TRUE}.
@@ -55,7 +59,9 @@ to_factor.default <- function(x, ...) {
 to_factor.labelled <- function(x, levels = c("labels", "values",
   "prefixed"), ordered = FALSE, nolabel_to_na = FALSE,
   sort_levels = c("auto", "none", "labels", "values"), decreasing = FALSE,
+  drop_unused_labels = FALSE,
   ...) {
+  vl <- var_label(x)
   levels <- match.arg(levels)
   sort_levels <- match.arg(sort_levels)
   if (nolabel_to_na)
@@ -86,8 +92,12 @@ to_factor.labelled <- function(x, levels = c("labels", "values",
   if (levels == "prefixed")
     labs <- paste0("[", levs, "] ", names(levs))
   levs <- unname(levs)
-  factor(x, levels = levs, labels = labs, ordered = ordered,
+  x <- factor(x, levels = levs, labels = labs, ordered = ordered,
     ...)
+  if (drop_unused_labels)
+    x <- droplevels(x)
+  var_label(x) <- vl
+  x
 }
 
 #' @rdname to_factor
@@ -102,9 +112,9 @@ to_factor.data.frame <- function(x, levels = c("labels", "values", "prefixed"),
                                  labelled_only = TRUE,
                                  ...) {
   cl <- class(x)
-  x <- lapply(x, .to_factor_col_data_frame, levels = levels, ordered = ordered,
+  x <- as.data.frame(lapply(x, .to_factor_col_data_frame, levels = levels, ordered = ordered,
          nolabel_to_na = nolabel_to_na, sort_levels = sort_levels, decreasing = decreasing,
-         labelled_only = labelled_only)
+         labelled_only = labelled_only))
   class(x) <- cl
   x
 }

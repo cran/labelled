@@ -1,3 +1,9 @@
+# labelled 0.2.2
+
+* `to_factor()`, `to_character()` and `to_labelled.factor()` now preserves variable label.
+
+* bug fix in `to_factor()` when applied to data frames.
+
 # labelled 0.2.0
 
 * Following evolution of `haven`, `labelled` deosn't support missing values anymore (cf. https://github.com/hadley/haven/commit/4b12ff9d51ddb9e7486966b85e0bcff44992904d)
