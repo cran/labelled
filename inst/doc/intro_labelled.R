@@ -143,3 +143,39 @@ to_labelled(to_factor(v))
 #   ds <- as.data.set(nes19480)
 #   df <- to_labelled(ds)
 
+## ------------------------------------------------------------------------
+library(dplyr)
+
+df <- data_frame(s1 = c("M", "M", "F"), s2 = c(1, 1, 2)) %>% 
+  set_variable_labels(s1 = "Sex", s2 = "Question") %>%
+  set_value_labels(s1 = c(Male = "M", Female = "F"), s2 = c(Yes = 1, No = 2))
+df$s2
+
+## ------------------------------------------------------------------------
+df <- df %>%
+  set_value_labels(s2 = c(Yes = 1, "Don't know" = 8, Unknown = 9))
+df$s2
+
+df <- df %>%
+  add_value_labels(s2 = c(No = 2))
+df$s2
+
+## ------------------------------------------------------------------------
+df <- df %>%
+  set_variable_labels(s1 = NULL)
+
+# removing one value label
+df <- df %>%
+  remove_value_labels(s2 = 2)
+df$s2
+
+# removing several value labels
+df <- df %>%
+  remove_value_labels(s2 = 8:9)
+df$s2
+
+# removing all value labels
+df <- df %>%
+  set_value_labels(s2 = NULL)
+df$s2
+

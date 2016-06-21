@@ -787,6 +787,122 @@ object of class <code>data.set</code>. The <code>to_labelled</code> method can c
  df &lt;- to_labelled(ds)
 </code></pre>
 
+<h2>Using labelled with dplyr/magrittr</h2>
+
+<p>If you are using the <code>%&gt;%</code> operator, you can use the functions <code>set_variable_labels</code>, <code>set_value_labels</code>,
+<code>add_value_labels</code> and <code>remove_value_labels</code>.</p>
+
+<pre><code class="r">library(dplyr)
+</code></pre>
+
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;
+</code></pre>
+
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag
+</code></pre>
+
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union
+</code></pre>
+
+<pre><code class="r">df &lt;- data_frame(s1 = c(&quot;M&quot;, &quot;M&quot;, &quot;F&quot;), s2 = c(1, 1, 2)) %&gt;% 
+  set_variable_labels(s1 = &quot;Sex&quot;, s2 = &quot;Question&quot;) %&gt;%
+  set_value_labels(s1 = c(Male = &quot;M&quot;, Female = &quot;F&quot;), s2 = c(Yes = 1, No = 2))
+df$s2
+</code></pre>
+
+<pre><code>## &lt;Labelled double&gt; Question
+## [1] 1 1 2
+## 
+## Labels:
+##  value label
+##      1   Yes
+##      2    No
+</code></pre>
+
+<p><code>set_value_labels</code> will replace the list of value labels while <code>add_value_labels</code> will update it.</p>
+
+<pre><code class="r">df &lt;- df %&gt;%
+  set_value_labels(s2 = c(Yes = 1, &quot;Don&#39;t know&quot; = 8, Unknown = 9))
+df$s2
+</code></pre>
+
+<pre><code>## &lt;Labelled double&gt; Question
+## [1] 1 1 2
+## 
+## Labels:
+##  value      label
+##      1        Yes
+##      8 Don&#39;t know
+##      9    Unknown
+</code></pre>
+
+<pre><code class="r">df &lt;- df %&gt;%
+  add_value_labels(s2 = c(No = 2))
+df$s2
+</code></pre>
+
+<pre><code>## &lt;Labelled double&gt; Question
+## [1] 1 1 2
+## 
+## Labels:
+##  value      label
+##      1        Yes
+##      8 Don&#39;t know
+##      9    Unknown
+##      2         No
+</code></pre>
+
+<p>You can also remove some variable and/or value labels.</p>
+
+<pre><code class="r">df &lt;- df %&gt;%
+  set_variable_labels(s1 = NULL)
+
+# removing one value label
+df &lt;- df %&gt;%
+  remove_value_labels(s2 = 2)
+df$s2
+</code></pre>
+
+<pre><code>## &lt;Labelled double&gt; Question
+## [1] 1 1 2
+## 
+## Labels:
+##  value      label
+##      1        Yes
+##      8 Don&#39;t know
+##      9    Unknown
+</code></pre>
+
+<pre><code class="r"># removing several value labels
+df &lt;- df %&gt;%
+  remove_value_labels(s2 = 8:9)
+df$s2
+</code></pre>
+
+<pre><code>## &lt;Labelled double&gt; Question
+## [1] 1 1 2
+## 
+## Labels:
+##  value label
+##      1   Yes
+</code></pre>
+
+<pre><code class="r"># removing all value labels
+df &lt;- df %&gt;%
+  set_value_labels(s2 = NULL)
+df$s2
+</code></pre>
+
+<pre><code>## [1] 1 1 2
+## attr(,&quot;label&quot;)
+## [1] &quot;Question&quot;
+</code></pre>
+
 </body>
 
 </html>

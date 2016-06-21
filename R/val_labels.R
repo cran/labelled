@@ -79,7 +79,7 @@ val_labels.data.frame <- function(x, prefixed = FALSE) {
 `val_labels<-.labelled` <- function(x, value) {
   if (is.null(value)) {
     x <- unclass(x)
-    .setattr(x, "labels", NULL)
+    attr(x, "labels") <- NULL
   } else {
     x <- labelled(x, value)
   }
@@ -225,6 +225,79 @@ val_label.data.frame <- function(x, v, prefixed = FALSE) {
   x
 }
 
+
+#' @rdname val_labels
+#' @param .data a data frame
+#' @param ... name-value pairs of value labels (see examples)
+#' @note
+#'   \code{set_value_labels}, \code{add_value_labels} and \code{remove_value_labels} could be used with \code{dplyr}.
+#'   While \code{set_value_labels} will replace the list of value labels, \code{add_value_labels} and
+#'   \code{remove_value_labels} will update that list (see examples).
+#' @return
+#'  \code{set_value_labels}, \code{add_value_labels} and \code{remove_value_labels} will return an updated
+#'  copy of \code{.data}.
+#' @examples
+#' if (require(dplyr)) {
+#'   # setting value labels
+#'   df <- data_frame(s1 = c("M", "M", "F"), s2 = c(1, 1, 2)) %>%
+#'     set_value_labels(s1 = c(Male = "M", Female = "F"), s2 = c(Yes = 1, No = 2))
+#'   val_labels(df)
+#'
+#'   # updating value labels
+#'   df <- df %>% add_value_labels(s2 = c(Unknown = 9))
+#'   df$s2
+#'
+#'   # removing a value labels
+#'   df <- df %>% remove_value_labels(s2 = 9)
+#'   df$s2
+#'
+#'   # removing all value labels
+#'   df <- df %>% set_value_labels(s2 = NULL)
+#'   df$s2
+#' }
+#' @export
+set_value_labels <- function(.data, ...) {
+  values <- list(...)
+  if (!all(names(values) %in% names(.data)))
+    stop("some variables not found in .data")
+
+  for (v in names(values))
+    val_labels(.data[[v]]) <- values[[v]]
+
+  .data
+}
+
+#' @rdname val_labels
+#' @export
+add_value_labels <- function(.data, ...) {
+  values <- list(...)
+  if (!all(names(values) %in% names(.data)))
+    stop("some variables not found in .data")
+
+  for(v in values)
+    if (is.null(names(v)) | any(names(v) == ""))
+      stop("all arguments should be named vectors")
+
+  for (v in names(values))
+    for (l in names(values[[v]]))
+      val_label(.data[[v]], values[[v]][[l]]) <- l
+
+  .data
+}
+
+#' @rdname val_labels
+#' @export
+remove_value_labels <- function(.data, ...) {
+  values <- list(...)
+  if (!all(names(values) %in% names(.data)))
+    stop("some variables not found in .data")
+
+  for (v in names(values))
+    for (l in values[[v]])
+      val_label(.data[[v]], l) <- NULL
+
+    .data
+}
 
 #' Sort value labels
 #'
