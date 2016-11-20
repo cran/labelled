@@ -1,8 +1,8 @@
 Package: labelled
 Type: Package
 Title: Manipulating Labelled Data
-Version: 0.2.3
-Date: 2016-06-21
+Version: 1.0.0
+Date: 2016-11-20
 Maintainer: Joseph Larmarange <joseph@larmarange.net>
 Authors@R: c(
   person("Joseph", "Larmarange", email = "joseph@larmarange.net", role = c("aut", "cre")),
@@ -13,7 +13,8 @@ Description: Work with labelled data imported from
     'SPSS' or 'Stata' with 'haven' or 'foreign'.
 License: GPL-3
 Encoding: UTF-8
-Suggests: haven, dplyr, testthat, knitr
+Imports: haven (>= 1.0.0)
+Suggests: dplyr, testthat, knitr
 Enhances: memisc
 LazyData: true
 URL: https://github.com/larmarange/labelled
@@ -21,9 +22,9 @@ BugReports: https://github.com/larmarange/labelled/issues
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2016-06-21 08:12:20 UTC; LARMARANGE Joseph
+Packaged: 2016-11-20 12:51:50 UTC; LARMARANGE Joseph
 Author: Joseph Larmarange [aut, cre],
   Daniel Ludecke [ctb],
   Hadley Wickham [ctb]
 Repository: CRAN
-Date/Publication: 2016-06-21 11:00:18
+Date/Publication: 2016-11-20 17:30:53
