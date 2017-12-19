@@ -3,6 +3,8 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/labelled)](https://cran.r-project.org/package=labelled) 
 ![downloads](http://cranlogs.r-pkg.org/badges/grand-total/labelled)
 
+**Online documentation:** http://larmarange.github.io/labelled/
+
 # Labelled package for R
 
 This package is built on the new class `labelled` introduced by **haven** package
@@ -28,7 +30,7 @@ devtools::install_github("larmarange/labelled")
 
 ## Introduction to labelled
 
-Read https://github.com/larmarange/labelled/blob/master/vignettes/intro_labelled.Rmd
+Read http://larmarange.github.io/labelled/articles/intro_labelled.html
 
 ## Some general principles
 
