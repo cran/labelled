@@ -1,7 +1,7 @@
 Package: labelled
 Type: Package
 Title: Manipulating Labelled Data
-Version: 2.0.0
+Version: 2.0.1
 Maintainer: Joseph Larmarange <joseph@larmarange.net>
 Authors@R: c(
   person("Joseph", "Larmarange", email = "joseph@larmarange.net", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-7097-700X")),
@@ -24,10 +24,10 @@ BugReports: https://github.com/larmarange/labelled/issues
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 NeedsCompilation: no
-Packaged: 2018-11-23 21:37:13 UTC; jlarmarange
+Packaged: 2018-11-24 12:50:54 UTC; jlarmarange
 Author: Joseph Larmarange [aut, cre] (<https://orcid.org/0000-0001-7097-700X>),
   Daniel Ludecke [ctb],
   Hadley Wickham [ctb],
   Bojanowski Michal [ctb]
 Repository: CRAN
-Date/Publication: 2018-11-23 23:30:02 UTC
+Date/Publication: 2018-11-25 13:00:09 UTC
