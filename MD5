@@ -1,6 +1,6 @@
-90e2b3b17a30063d732019e22201f1d5 *DESCRIPTION
+7f2f4a0170d4a7d9b98f14148884e0bf *DESCRIPTION
 12066ffbf3e4dd7da1448b48d48ac81c *NAMESPACE
-a74031b0d70bce3f17ff192e26aff73b *NEWS.md
+4a32f5df7ccd4065c35e48b219cea03a *NEWS.md
 a75b81a11bc50c696c32e82a381a763b *R/copy_labels.R
 afeed717c4c1760eb8c91ac40155c2ca *R/labelled.R
 76d4bbc95e08a2ba13633799e8d20a22 *R/mean.R
@@ -11,16 +11,16 @@ c7e1da9693f293de09f2846067a2603f *R/recode.R
 207f7667f5306fa05271040832b5a07e *R/remove_labels.R
 e6e14cec92b3c17ee9cd8ba10f58806d *R/retrocompatibility.R
 210c611a0e1f87c63f27165766515fd5 *R/to_character.R
-b29e00d54a621e4fd394a343b27e6fe2 *R/to_factor.R
+584cd498f984cb0f5c12419d078030f3 *R/to_factor.R
 1f43fd8ef6754aa76a93847c93db5a21 *R/to_labelled.R
 a3145bdcaf46bbab35c95dc05a0b6f4e *R/to_na.R
 bc71700a7a737184c35703f213b19270 *R/val_labels.R
 5a522217e52fe4ee4228d8add0767609 *R/var_label.R
 380bcccf7a412566ccb3cd3ec3cc8b7f *README.md
-1fea38be7c940319a0ef67b0c6affe0f *build/vignette.rds
+3b1248b16449096df3f916a0be8775c8 *build/vignette.rds
 9b274d690187d8f6ca5599a647dc79c5 *inst/doc/intro_labelled.R
-0a0a475c98be7f679d70fc4d3324da00 *inst/doc/intro_labelled.Rmd
-dea45ba95cab97592e89238057b4590c *inst/doc/intro_labelled.html
+28eb349fb640422ab10f8f572c8b99a8 *inst/doc/intro_labelled.Rmd
+efd9a44ecfe2103b9fb25ff871dc1814 *inst/doc/intro_labelled.html
 c35b1b723d8abc0cedf0c8d60f704889 *man/copy_labels.Rd
 72c4530af3131d89290472a8ff2e7c58 *man/labelled.Rd
 fa7482f17392f9b321df6a8631ab3835 *man/labelled_spss.Rd
@@ -39,5 +39,5 @@ c6d383e0a21d22af4648f5dda40bd53c *man/to_factor.Rd
 9ed23417dd1eead73753b6b36c89a395 *man/val_labels_to_na.Rd
 7e1e327846b118f0d89bf5d888885c55 *man/var_label.Rd
 36f6a82f059352b751a9526a628c45a9 *tests/testthat.R
-c72dce779b380c70427b0a9f111d22ca *tests/testthat/test-labelled.r
-0a0a475c98be7f679d70fc4d3324da00 *vignettes/intro_labelled.Rmd
+aaf281b33c075c192f154cb0bdc724be *tests/testthat/test-labelled.r
+28eb349fb640422ab10f8f572c8b99a8 *vignettes/intro_labelled.Rmd
