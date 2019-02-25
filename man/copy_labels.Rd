@@ -2,14 +2,14 @@
 % Please edit documentation in R/copy_labels.R
 \name{copy_labels}
 \alias{copy_labels}
-\title{Copy variable and value labels}
+\title{Copy variable and value labels and SPSS style missing value}
 \usage{
 copy_labels(from, to)
 }
 \arguments{
-\item{from}{Object to copy labels from.}
+\item{from}{A vector or a data.frame (or tibble) to copy labels from.}
 
-\item{to}{Object to copu labels to.}
+\item{to}{A vector or data.frame (or tibble) to copy labels to.}
 }
 \description{
 This function copies variable and value labels (including missing values)
