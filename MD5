@@ -1,11 +1,11 @@
-effd051bbaf75fb2c8dce3f1109fe1b6 *DESCRIPTION
+6c875e1bb023a3623ab80b22a3e121e8 *DESCRIPTION
 1d1653a9c1aa994b5fc1fc545be2b935 *NAMESPACE
-61464e74c2f3f813eebbbbc59ee02468 *NEWS.md
+29281aab52f4e72a88f86ef45a8c5216 *NEWS.md
 f9ae52b0b8bc8dc8b12c18debccc381e *R/copy_labels.R
 f58d622834131b7f021ffbc7ae90e616 *R/labelled.R
 5be0cd10cbf88d06c70561e1945a26a0 *R/lookfor.R
 76d4bbc95e08a2ba13633799e8d20a22 *R/mean.R
-21caff5a3bd17c3487482fac7f0b6dfc *R/na_values.R
+2948b64a8ab8ea293ce6c32736bade27 *R/na_values.R
 c7e1da9693f293de09f2846067a2603f *R/recode.R
 2e3abe5207ed388f66c8ddcd337b4e8c *R/remove_attributes.R
 207f7667f5306fa05271040832b5a07e *R/remove_labels.R
@@ -17,12 +17,14 @@ c4a1018b58e1fb41149d7296ec7b89b7 *R/to_factor.R
 a3145bdcaf46bbab35c95dc05a0b6f4e *R/to_na.R
 e460d53e1a7f6a7258456005415ced9e *R/val_labels.R
 d0f77027c91c145ffd4e86901a1105ed *R/var_label.R
-1826a5d88677730df99f9629bb81a48e *README.md
+d8859b604469955e427308b032df2e8f *README.md
 f9d26c600aaab0051d49a124d09659c9 *build/vignette.rds
 8c855018b89ecfe43db328cb60261727 *inst/doc/intro_labelled.R
 c9a329a2336bd62e13cbdbf67e0c43c3 *inst/doc/intro_labelled.Rmd
 b639a47ec2f1013b8b883d9d7ad7b872 *inst/doc/intro_labelled.html
 b9804a0d6c320d9ca29db6bec73a23d3 *man/copy_labels.Rd
+051f5a77298a1855400207ca4f9fb27f *man/figures/labelled.png
+a5712a26f97719301861031b113739d5 *man/figures/labelled.svg
 42255c853ec5089ad27ad5cc7463fb0e *man/labelled.Rd
 0b19a96b5605454a9942cab9642362ec *man/labelled_spss.Rd
 21fac293e230eabcfdc260e0b5eb4ea9 *man/look_for.Rd
@@ -42,5 +44,5 @@ f9955440451a210963e6148ccb7ea19a *man/remove_attributes.Rd
 9ed23417dd1eead73753b6b36c89a395 *man/val_labels_to_na.Rd
 3f1f0a075b5299e1268e67b4db86c486 *man/var_label.Rd
 36f6a82f059352b751a9526a628c45a9 *tests/testthat.R
-0b9a2f28f720df236a6f6536d9b36422 *tests/testthat/test-labelled.r
+adc07c83edf95025cc278c64e43e0911 *tests/testthat/test-labelled.r
 c9a329a2336bd62e13cbdbf67e0c43c3 *vignettes/intro_labelled.Rmd
