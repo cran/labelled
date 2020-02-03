@@ -71,10 +71,11 @@ look_for <- function(data,
     pos <- which(n %in% variable)
     # reordering according to pos
     # not forgetting that some variables don't have a label
-    if (length(l))
+    if (length(l)) {
       res <- data.frame(variable = n[pos], label = l[n[pos]], row.names = pos, stringsAsFactors = FALSE)
-    else
+    } else {
       res <- data.frame(variable = n[pos], row.names = pos, stringsAsFactors = FALSE)
+    }
 
     if (details) {
       res$class <- ""
@@ -91,7 +92,7 @@ look_for <- function(data,
         res$type[i] <- paste(typeof(data[[v]]), collapse = ", ")
         if (is.factor(data[[v]]))
           res$levels[i] <- paste(levels(data[[v]]), collapse = "; ")
-        if (inherits(data[[v]], "labelled")) {
+        if (inherits(data[[v]], "haven_labelled")) {
           res$value_labels[i] <- paste(names(val_labels(data[[v]], prefixed=TRUE)), collapse = "; ")
           res$na_values[i] <- paste(na_values(data[[v]]), collapse = ", ")
           res$na_range[i] <- paste(na_range(data[[v]]), collapse = "-")
