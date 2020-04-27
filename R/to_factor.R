@@ -140,7 +140,7 @@ to_factor.data.frame <- function(x, levels = c("labels", "values", "prefixed"),
                                  unclass = FALSE,
                                  ...) {
   cl <- class(x)
-  x <- dplyr::as_data_frame(lapply(x, .to_factor_col_data_frame, levels = levels, ordered = ordered,
+  x <- dplyr::as_tibble(lapply(x, .to_factor_col_data_frame, levels = levels, ordered = ordered,
          nolabel_to_na = nolabel_to_na, sort_levels = sort_levels, decreasing = decreasing,
          labelled_only = labelled_only, drop_unused_labels = drop_unused_labels, strict = strict,
          unclass = unclass, ...))
@@ -162,5 +162,19 @@ to_factor.data.frame <- function(x, levels = c("labels", "values", "prefixed"),
   else if (!labelled_only)
     x <- to_factor(x)
   x
+}
+
+#' @rdname to_factor
+#' @description
+#' \code{unlabelled(x)} is a shortcut for
+#' \code{to_factor(x, strict = TRUE, unclass = TRUE, labelled_only = TRUE)}.
+#' @details
+#' \code{unlabelled()} is a shortcut for quickly removing value labels of a vector
+#' or of a data.frame. If all observed values have a value label, then the vector
+#' will be converted into a factor. Otherwise, value labels will be simply removed.
+#' If you want to remove value labels in all cases, use \code{\link{remove_val_labels}}.
+#' @export
+unlabelled <- function(x, ...) {
+  to_factor(x, strict = TRUE, unclass = TRUE, labelled_only = TRUE, ...)
 }
 
