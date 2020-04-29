@@ -1,3 +1,10 @@
+# labelled 2.3.1
+
+* an additional argument `keep_var_label` for `remove_labels()`
+* bug fix for `unlabelled()` when applied on a vector
+* when using `unclass = TRUE` with `to_factor()`, attributes 
+  are not removed anymore
+
 # labelled 2.3.0
 
 * new function `unlabelled()`
