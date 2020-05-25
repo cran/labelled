@@ -92,7 +92,7 @@ When applied to a data.frame, only labelled vectors are converted by default to 
 
 \code{unlabelled()} is a shortcut for quickly removing value labels of a vector
 or of a data.frame. If all observed values have a value label, then the vector
-will be converted into a factor. Otherwise, value labels will be simply removed.
+will be converted into a factor. Otherwise, the vector will be unclassed.
 If you want to remove value labels in all cases, use \code{\link{remove_val_labels}}.
 }
 \examples{
@@ -112,4 +112,17 @@ v <- labelled(c(1, 1, 2, 3), labels = c(No = 1, Yes = 2))
 to_factor(v)
 to_factor(v, strict = TRUE) # Not converted because 3 does not have a label
 to_factor(v, strict = TRUE, unclass = TRUE)
+
+df <- data.frame(
+  a = labelled(c(1, 1, 2, 3), labels = c(No = 1, Yes = 2)),
+  b = labelled(c(1, 1, 2, 3), labels = c(No = 1, Yes = 2, DK = 3)),
+  c = labelled(c("a", "a", "b", "c"), labels = c(No = "a", Maybe = "b", Yes = "c")),
+  d = 1:4,
+  e = factor(c("item1", "item2", "item1", "item2")),
+  f = c("itemA", "itemA", "itemB", "itemB")
+)
+if (require(dplyr)) {
+  glimpse(df)
+  glimpse(unlabelled(df))
+}
 }

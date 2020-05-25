@@ -96,7 +96,7 @@ to_factor.haven_labelled <- function(x, levels = c("labels", "values",
   nolabel <- sort(allval[!allval %in% labels])
   # if there are some values with no label
   if (length(nolabel) > 0) {
-    names(nolabel) <- nolabel
+    names(nolabel) <- as.character(nolabel)
     levs <- c(labels, nolabel)
   } else {
     levs <- labels
@@ -169,8 +169,22 @@ to_factor.data.frame <- function(x, levels = c("labels", "values", "prefixed"),
 #' @details
 #' \code{unlabelled()} is a shortcut for quickly removing value labels of a vector
 #' or of a data.frame. If all observed values have a value label, then the vector
-#' will be converted into a factor. Otherwise, value labels will be simply removed.
+#' will be converted into a factor. Otherwise, the vector will be unclassed.
 #' If you want to remove value labels in all cases, use \code{\link{remove_val_labels}}.
+#' @examples
+#'
+#' df <- data.frame(
+#'   a = labelled(c(1, 1, 2, 3), labels = c(No = 1, Yes = 2)),
+#'   b = labelled(c(1, 1, 2, 3), labels = c(No = 1, Yes = 2, DK = 3)),
+#'   c = labelled(c("a", "a", "b", "c"), labels = c(No = "a", Maybe = "b", Yes = "c")),
+#'   d = 1:4,
+#'   e = factor(c("item1", "item2", "item1", "item2")),
+#'   f = c("itemA", "itemA", "itemB", "itemB")
+#' )
+#' if (require(dplyr)) {
+#'   glimpse(df)
+#'   glimpse(unlabelled(df))
+#' }
 #' @export
 unlabelled <- function(x, ...) {
   if (is.data.frame(x))
