@@ -4,12 +4,20 @@
 \alias{recode.haven_labelled}
 \title{Recode values}
 \usage{
-\method{recode}{haven_labelled}(.x, ..., .default = NULL, .missing = NULL)
+\method{recode}{haven_labelled}(
+  .x,
+  ...,
+  .default = NULL,
+  .missing = NULL,
+  .keep_value_labels = TRUE,
+  .combine_value_labels = FALSE,
+  .sep = " / "
+)
 }
 \arguments{
 \item{.x}{A vector to modify}
 
-\item{...}{Replacements. For character and factor \code{.x}, these should be named
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Replacements. For character and factor \code{.x}, these should be named
 and replacement is based only on their name. For numeric \code{.x}, these can be
 named or not. If not named, the replacement is done based on position i.e.
 \code{.x} represents positions to look for in replacements. See examples.
@@ -18,9 +26,7 @@ When named, the argument names should be the current values to be replaced, and 
 argument values should be the new (replacement) values.
 
 All replacements must be the same type, and must have either
-length one or the same length as \code{.x}.
-
-These dots support \link[rlang:tidy-dots]{tidy dots} features.}
+length one or the same length as \code{.x}.}
 
 \item{.default}{If supplied, all values not otherwise matched will
 be given this value. If not supplied and if the replacements are
@@ -34,16 +40,52 @@ are not compatible, unmatched values are replaced with \code{NA}.
 \item{.missing}{If supplied, any missing values in \code{.x} will be
 replaced by this value. Must be either length 1 or the same length as
 \code{.x}.}
+
+\item{.keep_value_labels}{If TRUE, keep original value labels.
+If FALSE, remove value labels.}
+
+\item{.combine_value_labels}{If TRUE, will combine original value labels
+to generate new value labels. Note that unexpected results could be obtained
+if a same old value is recoded into several different new values.}
+
+\item{.sep}{Separator to be used when combining value labels.}
 }
 \description{
-Extend \code{\link[dplyr]{recode}} method from \pkg{haven} to
+Extend \code{\link[dplyr:recode]{dplyr::recode()}} method from \pkg{dplyr} to
 works with labelled vectors.
 }
 \examples{
 x <- labelled(1:3, c(yes = 1, no = 2))
 x
 dplyr::recode(x, `3` = 2L)
+
+# do not keep value labels
+dplyr::recode(x, `3` = 2L, .keep_value_labels = FALSE)
+
+# be careful, changes are not of the same type (here integers), NA are created
+dplyr::recode(x, `3` = 2)
+
+# except if you provide .default or new values for all old values
+dplyr::recode(x, `1` = 1, `2` = 1,`3` = 2)
+
+# if you change the type of the vector (here transformed into character)
+# value labels are lost
+dplyr::recode(x, `3` = "b", .default = "a")
+
+# use .keep_value_labels = FALSE to avoid a warning
+dplyr::recode(x, `3` = "b", .default = "a", .keep_value_labels = FALSE)
+
+# combine value labels
+x <- labelled(1:4, c("strongly agree" = 1, "agree" = 2, "disagree" = 3, "strongly disagree" = 4))
+dplyr::recode(x, `1` = 1L, `2` = 1L, `3` = 2L, `4` = 2L, .combine_value_labels = TRUE)
+dplyr::recode(x, `2` = 1L, `4` = 3L, .combine_value_labels = TRUE)
+dplyr::recode(x, `2` = 1L, `4` = 3L, .combine_value_labels = TRUE, .sep = " or ")
+dplyr::recode(x, `2` = 1L, .default = 2L, .combine_value_labels = TRUE)
+
+# example when combining some values without a label
+y <- labelled(1:4, c("strongly agree" = 1))
+dplyr::recode(y, `2` = 1L, `4` = 3L, .combine_value_labels = TRUE)
 }
 \seealso{
-\code{\link[dplyr]{recode}} (\pkg{dplyr})
+\code{\link[dplyr:recode]{dplyr::recode()}}
 }
