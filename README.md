@@ -1,6 +1,3 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # labelled <img src="man/figures/labelled.png" align="right" width="120" />
 
 <!-- badges: start -->
@@ -10,12 +7,13 @@ state and is being actively
 developed.](https://www.repostatus.org/badges/0.1.0/active.svg)](https://www.repostatus.org/#active)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
-[![Travis-CI Build
-Status](https://travis-ci.org/larmarange/labelled.svg?branch=master)](https://travis-ci.org/larmarange/labelled)
+[![Travis build status](https://travis-ci.com/larmarange/labelled.svg?branch=master)](https://travis-ci.com/larmarange/labelled)
+[![R build status](https://github.com/larmarange/labelled/workflows/R-CMD-check/badge.svg)](https://github.com/larmarange/labelled/actions)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/labelled)](https://cran.r-project.org/package=labelled)
 [![Rdoc](https://www.rdocumentation.org/badges/version/labelled)](https://www.rdocumentation.org/packages/labelled)
 [![Downloads](https://cranlogs.r-pkg.org/badges/labelled)](https://cran.r-project.org/package=labelled)
 [![DOI](https://www.zenodo.org/badge/38772078.svg)](https://www.zenodo.org/badge/latestdoi/38772078)
+<!-- [![Codecov test coverage](https://codecov.io/gh/larmarange/labelled/branch/master/graph/badge.svg)](https://codecov.io/gh/larmarange/labelled?branch=master) -->
 <!-- badges: end -->
 
 This package is built on the new classes `haven_labelled` and
