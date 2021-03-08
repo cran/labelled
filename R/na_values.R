@@ -7,7 +7,7 @@
 #' want the range to be open ended).
 #' @details
 #' See [haven::labelled_spss()] for a presentation of SPSS's user defined missing values.
-#' Note that [base::is.na()] will return `TRUE` for user defined misssing values.
+#' Note that [base::is.na()] will return `TRUE` for user defined missing values.
 #' You can use [user_na_to_na()] to convert user defined missing values to `NA`.
 #' @return
 #'   `na_values()` will return a vector of values that should also be considered as missing.
@@ -76,6 +76,33 @@ na_values.data.frame <- function(x) {
   x
 }
 
+#' @export
+`na_values<-.data.frame` <- function(x, value) {
+  if (!is.list(value)) {
+    temp <- as.list(rep(1, ncol(x)))
+    names(temp) <- names(x)
+    value <- lapply(temp, function(x) {
+      x <- value
+    })
+  }
+
+  if (!all(names(value) %in% names(x)))
+    stop("some variables not found in x")
+
+  for (var in names(value)) if (!is.null(value[[var]])) {
+    if (mode(x[[var]]) != mode(value[[var]]))
+      stop("`x` and `value` must be same type", call. = FALSE,
+           domain = "R-labelled")
+    if (typeof(x[[var]]) != typeof(value[[var]]))
+      mode(value[[var]]) <- typeof(x[[var]])
+  }
+
+  for (var in names(value)) na_values(x[[var]]) <- value[[var]]
+
+  x
+}
+
+
 #' @rdname na_values
 #' @export
 na_range <- function(x) {
@@ -122,6 +149,32 @@ na_range.data.frame <- function(x) {
   } else {
     x <- labelled_spss(x, val_labels(x), na_values = attr(x, "na_values"), na_range = value, label = var_label(x))
   }
+  x
+}
+
+#' @export
+`na_range<-.data.frame` <- function(x, value) {
+  if (!is.list(value)) {
+    temp <- as.list(rep(1, ncol(x)))
+    names(temp) <- names(x)
+    value <- lapply(temp, function(x) {
+      x <- value
+    })
+  }
+
+  if (!all(names(value) %in% names(x)))
+    stop("some variables not found in x")
+
+  for (var in names(value)) if (!is.null(value[[var]])) {
+    if (mode(x[[var]]) != mode(value[[var]]))
+      stop("`x` and `value` must be same type", call. = FALSE,
+           domain = "R-labelled")
+    if (typeof(x[[var]]) != typeof(value[[var]]))
+      mode(value[[var]]) <- typeof(x[[var]])
+  }
+
+  for (var in names(value)) na_range(x[[var]]) <- value[[var]]
+
   x
 }
 

@@ -15,7 +15,7 @@
 #' @param labels whether or not to search variable labels (descriptions); `TRUE` by default
 #' @param ignore.case whether or not to make the keywords case sensitive;
 #' `TRUE` by default (case is ignored during matching)
-#' @param details add details about each variable (turn off for a quicker search)
+#' @param details add details about each variable (full details could be time consuming for big data frames, `FALSE` is equivalent to `"none"` and `TRUE` to `"full"`)
 #' @param x a tibble returned by `look_for()`
 #' @return a tibble data frame featuring the variable position, name and description
 #' (if it exists) in the original data frame
@@ -27,7 +27,7 @@
 #'
 #' `look_for()`, `lookfor()` and `generate_dictionary()` are equivalent.
 #'
-#' By default, results will be summrized when printing. To deactivate default printing,
+#' By default, results will be summarized when printing. To deactivate default printing,
 #' use `dplyr::as_tibble()`.
 #'
 #' `lookfor_to_long_format()` could be used to transform results with one row per factor level
@@ -54,10 +54,14 @@
 #' look_for(iris, "Pet", "sp", "width", ignore.case = FALSE)
 #'
 #' # Quicker search without variable details
-#' look_for(iris, details = FALSE)
+#' look_for(iris, details = "none")
+#'
+#' # To obtain more details about each variable
+#' look_for(iris, details = "full")
 #'
 #' # To deactivate default printing, convert to tibble
-#' look_for(iris) %>% dplyr::as_tibble()
+#' look_for(iris, details = "full") %>%
+#'   dplyr::as_tibble()
 #'
 #' # To convert named lists into character vectors
 #' look_for(iris) %>% convert_list_columns_to_character()
@@ -79,14 +83,19 @@
 #'     lookfor_to_long_format() %>%
 #'     convert_list_columns_to_character()
 #' }
-#' @source Based on the behaviour of the `lookfor` command in Stata.
+#' @source Based on the behavior of the `lookfor` command in Stata.
 #' @export
 
 look_for <- function(data,
                     ...,
                     labels = TRUE,
                     ignore.case = TRUE,
-                    details = TRUE) {
+                    details = c("basic", "none", "full")) {
+  if (is.logical(details)) {
+    details <- ifelse(details, "full", "none")
+  } else {
+    details <- match.arg(details)
+  }
   # applying to_labelled
   data <- to_labelled(data)
   # search scope
@@ -118,13 +127,25 @@ look_for <- function(data,
       res <- dplyr::tibble(pos = pos, variable = n[pos], label = NA_character_)
     }
 
-    if (details) {
+    if (details != "none") {
+      data <- data %>%
+        dplyr::select(res$variable)
+
+      res <- res %>%
+        dplyr::mutate(
+          col_type = unlist(lapply(data, vctrs::vec_ptype_abbr)),
+          levels = lapply(data, levels),
+          value_labels = lapply(data, val_labels)
+        )
+
+    }
+
+    if (details == "full") {
       data <- data %>%
         dplyr::select(res$variable)
 
       unique_values <- function(x) {length(unique(x))}
       n_na <- function(x) {sum(is.na(x))}
-
       generic_range <- function(x){
         if (all(unlist(lapply(x, is.null)))) return(NULL)
         if (all(is.na(x))) return(NULL)
@@ -137,11 +158,8 @@ look_for <- function(data,
 
       res <- res %>%
         dplyr::mutate(
-          col_type = unlist(lapply(data, vctrs::vec_ptype_abbr)),
           class = lapply(data, class),
           type = unlist(lapply(data, typeof)),
-          levels = lapply(data, levels),
-          value_labels = lapply(data, val_labels),
           na_values = lapply(data, na_values),
           na_range = lapply(data, na_range),
           unique_values = unlist(lapply(data, unique_values)),
@@ -179,23 +197,49 @@ print.look_for <- function(x, ...) {
         label = dplyr::if_else(is.na(.data$label), "\u2014", .data$label) # display -- when empty
       )
 
-    if (all(c("value_labels", "levels", "range", "col_type") %in% names(x))) {
+    if (all(c("value_labels", "levels", "col_type") %in% names(x))) {
+      if (!"range" %in% names(x)) {
+        x$range <- NA_character_
+      }
       x <- x %>%
         dplyr::mutate(
           values = dplyr::case_when(
             !is.na(.data$value_labels) ~ .data$value_labels,
             !is.na(.data$levels) ~ .data$levels,
             !is.na(.data$range) ~ paste("range:", .data$range),
-            TRUE ~ "\u200b" # zero-width space
+            TRUE ~ "" # zero-width space
           ),
-          variable = dplyr::if_else(duplicated(.data$pos), "\u200b", .data$variable),
-          label = dplyr::if_else(duplicated(.data$pos), "\u200b", .data$label),
-          col_type = dplyr::if_else(duplicated(.data$pos), "\u200b", .data$col_type),
-          pos = dplyr::if_else(duplicated(.data$pos), "\u200b", as.character(.data$pos))
+          variable = dplyr::if_else(duplicated(.data$pos), "", .data$variable),
+          label = dplyr::if_else(duplicated(.data$pos), "", .data$label),
+          col_type = dplyr::if_else(duplicated(.data$pos), "", .data$col_type),
+          pos = dplyr::if_else(duplicated(.data$pos), "", as.character(.data$pos))
         ) %>%
         dplyr::select(dplyr::any_of(c("pos", "variable", "label", "col_type", "values")))
     }
-    print(pillar::colonnade(x, has_row_id = FALSE))
+    w <- getOption("width") # available width for printing
+    w_pos <- max(3, stringr::str_length(x$pos))
+    w_variable <- max(5, stringr::str_length(x$variable))
+    w_label <- max(5, stringr::str_length(x$label))
+
+    if ("values" %in% names(x)) {
+      w_col_type <- max(8, stringr::str_length(x$col_type))
+      w_values <- max(5, stringr::str_length(x$values))
+      # width for labels
+      lw <- w - 8 - w_pos - w_variable - w_col_type
+      lw <- dplyr::case_when(
+        w_values < lw / 2 ~ lw - w_values,
+        w_label < lw / 2 ~ lw - w_label,
+        TRUE ~ trunc(lw / 2)
+      )
+      x$label <- stringr::str_trunc(x$label, lw, ellipsis = "~")
+      x$values <- stringr::str_trunc(x$values, lw, ellipsis = "~")
+    } else {
+      # width for labels
+      lw <- w - 4 - w_pos - w_variable
+      x$label <- stringr::str_trunc(x$label, lw, ellipsis = "~")
+    }
+
+    print.data.frame(x, row.names = FALSE, quote = FALSE, right = FALSE)
   } else {
     message("Nothing found. Sorry.")
   }
@@ -207,6 +251,10 @@ convert_list_columns_to_character <- function(x) {
   if ("range" %in% names(x))
     x <- x %>%
       dplyr::mutate(range = unlist(lapply(range, paste, collapse = " - ")))
+
+  if ("value_labels" %in% names(x) && is.list(x$value_labels))
+    x <- x %>%
+      dplyr::mutate(value_labels = names_prefixed_by_values(.data$value_labels))
 
   x %>%
     dplyr::as_tibble() %>% # remove look_for class
