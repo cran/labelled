@@ -4,7 +4,7 @@
 #' @param prefixed Should labels be prefixed with values?
 #' @param v A single value.
 #' @param value A named vector for `val_labels()` (see [haven::labelled()]) or a character string
-#'   for `val_labels()`. `NULL` to remove the labels.
+#'   for `val_label()`. `NULL` to remove the labels.
 #'   For data frames, it could also be a named list with a vector of value labels per variable.
 #' @return
 #'   `val_labels()` will return a named vector.
@@ -32,7 +32,7 @@ val_labels.default <- function(x, prefixed = FALSE) {
 val_labels.haven_labelled <- function(x, prefixed = FALSE) {
   labels <- attr(x, "labels", exact = TRUE)
   if (prefixed)
-    names(labels) <- paste0("[", labels, "] ", names(labels))
+    names(labels) <- names_prefixed_by_values(labels)
   labels
 }
 
@@ -54,8 +54,15 @@ val_labels.data.frame <- function(x, prefixed = FALSE) {
 }
 
 #' @export
+`val_labels<-.factor` <- function(x, value) {
+  if (!is.null(value))
+    stop("Value labels cannot be applied to factors.")
+  x %>% remove_attributes("labels")
+}
+
+#' @export
 `val_labels<-.numeric` <- function(x, value) {
-  if (!is.null(value)) {
+  if (!is.null(value) & length(value) > 0) {
     x <- labelled(x, value, label = var_label(x))
   }
   x
@@ -63,7 +70,7 @@ val_labels.data.frame <- function(x, prefixed = FALSE) {
 
 #' @export
 `val_labels<-.character` <- function(x, value) {
-  if (!is.null(value)) {
+  if (!is.null(value) & length(value) > 0) {
     x <- labelled(x, value, label = var_label(x))
   }
   x
@@ -71,6 +78,8 @@ val_labels.data.frame <- function(x, prefixed = FALSE) {
 
 #' @export
 `val_labels<-.haven_labelled` <- function(x, value) {
+  if (length(value) == 0)
+    value <- NULL
   if (is.null(value)) {
     x <- unclass(x)
     attr(x, "labels") <- NULL
@@ -82,6 +91,8 @@ val_labels.data.frame <- function(x, prefixed = FALSE) {
 
 #' @export
 `val_labels<-.haven_labelled_spss` <- function(x, value) {
+  if (length(value) == 0)
+    value <- NULL
   if (is.null(value) & is.null(attr(x, "na_values")) & is.null(attr(x, "na_range"))) {
     x <- unclass(x)
     attr(x, "labels") <- NULL
@@ -136,13 +147,9 @@ val_label.default <- function(x, v, prefixed = FALSE) {
 val_label.haven_labelled <- function(x, v, prefixed = FALSE) {
   if (length(v) != 1)
     stop("`v` should be a single value", call. = FALSE, domain = "R-labelled")
-  labels <- val_labels(x)
+  labels <- val_labels(x, prefixed = prefixed)
   if (v %in% labels) {
-    if (prefixed) {
-      paste0("[", v, "] ", names(labels)[labels == v])
-    } else {
-      names(labels)[labels == v]
-    }
+    names(labels)[labels == v]
   } else {
     NULL
   }
@@ -157,6 +164,19 @@ val_label.data.frame <- function(x, v, prefixed = FALSE) {
 #' @export
 `val_label<-` <- function(x, v, value) {
   UseMethod("val_label<-")
+}
+
+#' @export
+`val_label<-.default` <- function(x, v, value) {
+  # do nothing
+  x
+}
+
+#' @export
+`val_label<-.factor` <- function(x, v, value) {
+  if (!is.null(value))
+    stop("Value labels cannot be applied to factors.")
+  x
 }
 
 #' @export
@@ -342,7 +362,7 @@ sort_val_labels.haven_labelled <- function(x, according_to = c("values",
   labels <- val_labels(x)
   if (!is.null(labels)) {
     if (according_to == "values")
-      labels <- sort(labels, decreasing = decreasing)
+      labels <- sort_tagged_na(labels, decreasing = decreasing)
     if (according_to == "labels")
       labels <- labels[order(names(labels), decreasing = decreasing)]
     val_labels(x) <- labels
@@ -377,7 +397,13 @@ names_prefixed_by_values <- function(x) {
 #' @export
 names_prefixed_by_values.default <- function(x) {
   if (is.null(x)) return(NULL)
-  paste0("[", x, "] ", names(x))
+  res <- as.character(x)
+  if (is.double(x)) {
+    res[is_tagged_na(x)] <- format_tagged_na(x[is_tagged_na(x)])
+  }
+  res <- paste0("[", res, "] ", names(x))
+  names(res) <- names(x)
+  res
 }
 
 #' @export

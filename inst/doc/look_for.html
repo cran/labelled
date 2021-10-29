@@ -27,11 +27,19 @@
     </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -404,15 +412,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $ variable      &lt;chr&gt; &quot;id_woman&quot;, &quot;id_household&quot;, &quot;weight&quot;, &quot;interview_date&quot;, ~
 ## $ label         &lt;chr&gt; &quot;Woman Id&quot;, &quot;Household Id&quot;, &quot;Sample weight&quot;, &quot;Interview ~
 ## $ col_type      &lt;chr&gt; &quot;dbl&quot;, &quot;dbl&quot;, &quot;dbl&quot;, &quot;date&quot;, &quot;date&quot;, &quot;dbl&quot;, &quot;dbl+lbl&quot;, &quot;~
-## $ levels        &lt;named list&gt; [NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N~
-## $ value_labels  &lt;named list&gt; [NULL, NULL, NULL, NULL, NULL, NULL, &lt;1, 2&gt;, &lt;1, ~
-## $ class         &lt;named list&gt; [&quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;, &quot;Date&quot;, &quot;Date&quot;,~
+## $ levels        &lt;named list&gt; &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, ~
+## $ value_labels  &lt;named list&gt; &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;~
+## $ class         &lt;named list&gt; &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;, &quot;Date&quot;, &quot;Date&quot;, ~
 ## $ type          &lt;chr&gt; &quot;double&quot;, &quot;double&quot;, &quot;double&quot;, &quot;double&quot;, &quot;double&quot;,~
-## $ na_values     &lt;named list&gt; [NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 9~
-## $ na_range      &lt;named list&gt; [NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ~
+## $ na_values     &lt;named list&gt; &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, ~
+## $ na_range      &lt;named list&gt; &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;~
 ## $ unique_values &lt;int&gt; 2000, 1814, 351, 165, 1740, 36, 2, 4, 4, 3, 6, 6,~
 ## $ n_na          &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 4, 0, 0, 0, 0, 29
-## $ range         &lt;named list&gt; [&lt;1, 2000&gt;, &lt;1, 1814&gt;, &lt;0.044629, 4.396831&gt;, &lt;2011-12-01~</code></pre>
+## $ range         &lt;named list&gt; &lt;1, 2000&gt;, &lt;1, 1814&gt;, &lt;0.044629, 4.396831&gt;, &lt;2011-12-01,~</code></pre>
 </div>
 <div id="advanced-usages-of-look_for" class="section level2">
 <h2>Advanced usages of <code>look_for()</code></h2>
@@ -420,25 +428,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">look_for</span>(women) <span class="sc">%&gt;%</span> <span class="fu">View</span>()</span></code></pre></div>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">look_for</span>(women) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 17 x 6
-##      pos variable       label                    col_type levels    value_labels
-##    &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;                    &lt;chr&gt;    &lt;named l&gt; &lt;named list&gt;
-##  1     1 id_woman       Woman Id                 dbl      &lt;NULL&gt;    &lt;NULL&gt;      
-##  2     2 id_household   Household Id             dbl      &lt;NULL&gt;    &lt;NULL&gt;      
-##  3     3 weight         Sample weight            dbl      &lt;NULL&gt;    &lt;NULL&gt;      
-##  4     4 interview_date Interview date           date     &lt;NULL&gt;    &lt;NULL&gt;      
-##  5     5 date_of_birth  Date of birth            date     &lt;NULL&gt;    &lt;NULL&gt;      
-##  6     6 age            Age at last anniversary~ dbl      &lt;NULL&gt;    &lt;NULL&gt;      
-##  7     7 residency      Urban / rural residency  dbl+lbl  &lt;NULL&gt;    &lt;dbl [2]&gt;   
-##  8     8 region         Region                   dbl+lbl  &lt;NULL&gt;    &lt;dbl [4]&gt;   
-##  9     9 instruction    Level of instruction     dbl+lbl  &lt;NULL&gt;    &lt;dbl [4]&gt;   
-## 10    10 employed       Employed?                dbl+lbl  &lt;NULL&gt;    &lt;dbl [3]&gt;   
-## 11    11 matri          Matrimonial status       dbl+lbl  &lt;NULL&gt;    &lt;dbl [6]&gt;   
-## 12    12 religion       Religion                 dbl+lbl  &lt;NULL&gt;    &lt;dbl [5]&gt;   
-## 13    13 newspaper      Read newspaper?          dbl+lbl  &lt;NULL&gt;    &lt;dbl [2]&gt;   
-## 14    14 radio          Listen to radio?         dbl+lbl  &lt;NULL&gt;    &lt;dbl [2]&gt;   
-## 15    15 tv             Watch TV?                dbl+lbl  &lt;NULL&gt;    &lt;dbl [2]&gt;   
-## 16    16 ideal_nb_chil~ Ideal number of children dbl+lbl  &lt;NULL&gt;    &lt;dbl [2]&gt;   
-## 17    17 test           Ever tested for HIV?     dbl+lbl  &lt;NULL&gt;    &lt;dbl [3]&gt;</code></pre>
+##      pos variable          label                 col_type levels    value_labels
+##    &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;                 &lt;chr&gt;    &lt;named l&gt; &lt;named list&gt;
+##  1     1 id_woman          Woman Id              dbl      &lt;NULL&gt;    &lt;NULL&gt;      
+##  2     2 id_household      Household Id          dbl      &lt;NULL&gt;    &lt;NULL&gt;      
+##  3     3 weight            Sample weight         dbl      &lt;NULL&gt;    &lt;NULL&gt;      
+##  4     4 interview_date    Interview date        date     &lt;NULL&gt;    &lt;NULL&gt;      
+##  5     5 date_of_birth     Date of birth         date     &lt;NULL&gt;    &lt;NULL&gt;      
+##  6     6 age               Age at last annivers~ dbl      &lt;NULL&gt;    &lt;NULL&gt;      
+##  7     7 residency         Urban / rural reside~ dbl+lbl  &lt;NULL&gt;    &lt;dbl [2]&gt;   
+##  8     8 region            Region                dbl+lbl  &lt;NULL&gt;    &lt;dbl [4]&gt;   
+##  9     9 instruction       Level of instruction  dbl+lbl  &lt;NULL&gt;    &lt;dbl [4]&gt;   
+## 10    10 employed          Employed?             dbl+lbl  &lt;NULL&gt;    &lt;dbl [3]&gt;   
+## 11    11 matri             Matrimonial status    dbl+lbl  &lt;NULL&gt;    &lt;dbl [6]&gt;   
+## 12    12 religion          Religion              dbl+lbl  &lt;NULL&gt;    &lt;dbl [5]&gt;   
+## 13    13 newspaper         Read newspaper?       dbl+lbl  &lt;NULL&gt;    &lt;dbl [2]&gt;   
+## 14    14 radio             Listen to radio?      dbl+lbl  &lt;NULL&gt;    &lt;dbl [2]&gt;   
+## 15    15 tv                Watch TV?             dbl+lbl  &lt;NULL&gt;    &lt;dbl [2]&gt;   
+## 16    16 ideal_nb_children Ideal number of chil~ dbl+lbl  &lt;NULL&gt;    &lt;dbl [2]&gt;   
+## 17    17 test              Ever tested for HIV?  dbl+lbl  &lt;NULL&gt;    &lt;dbl [3]&gt;</code></pre>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">look_for</span>(women))</span></code></pre></div>
 <pre><code>## Rows: 17
 ## Columns: 6
@@ -446,64 +454,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $ variable     &lt;chr&gt; &quot;id_woman&quot;, &quot;id_household&quot;, &quot;weight&quot;, &quot;interview_date&quot;, &quot;~
 ## $ label        &lt;chr&gt; &quot;Woman Id&quot;, &quot;Household Id&quot;, &quot;Sample weight&quot;, &quot;Interview d~
 ## $ col_type     &lt;chr&gt; &quot;dbl&quot;, &quot;dbl&quot;, &quot;dbl&quot;, &quot;date&quot;, &quot;date&quot;, &quot;dbl&quot;, &quot;dbl+lbl&quot;, &quot;d~
-## $ levels       &lt;named list&gt; [NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NU~
-## $ value_labels &lt;named list&gt; [NULL, NULL, NULL, NULL, NULL, NULL, &lt;1, 2&gt;, &lt;1, 2~</code></pre>
+## $ levels       &lt;named list&gt; &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;~
+## $ value_labels &lt;named list&gt; &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;1~</code></pre>
 <p>The tibble returned by <code>look_for()</code> could be easily manipulated for advanced programming.</p>
 <p>When a column has several values for one variable (e.g. <code>levels</code> or <code>value_labels</code>), results as stored with nested named list. You can convert named lists into simpler character vectors, you can use <code>convert_list_columns_to_character()</code>.</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">look_for</span>(women) <span class="sc">%&gt;%</span> <span class="fu">convert_list_columns_to_character</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 17 x 6
-##      pos variable    label         col_type levels value_labels                 
-##    &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;                        
-##  1     1 id_woman    Woman Id      dbl      &quot;&quot;     &quot;&quot;                           
-##  2     2 id_househo~ Household Id  dbl      &quot;&quot;     &quot;&quot;                           
-##  3     3 weight      Sample weight dbl      &quot;&quot;     &quot;&quot;                           
-##  4     4 interview_~ Interview da~ date     &quot;&quot;     &quot;&quot;                           
-##  5     5 date_of_bi~ Date of birth date     &quot;&quot;     &quot;&quot;                           
-##  6     6 age         Age at last ~ dbl      &quot;&quot;     &quot;&quot;                           
-##  7     7 residency   Urban / rura~ dbl+lbl  &quot;&quot;     &quot;[1] urban; [2] rural&quot;       
-##  8     8 region      Region        dbl+lbl  &quot;&quot;     &quot;[1] North; [2] East; [3] So~
-##  9     9 instruction Level of ins~ dbl+lbl  &quot;&quot;     &quot;[0] none; [1] primary; [2] ~
-## 10    10 employed    Employed?     dbl+lbl  &quot;&quot;     &quot;[0] no; [1] yes; [9] missin~
-## 11    11 matri       Matrimonial ~ dbl+lbl  &quot;&quot;     &quot;[0] single; [1] married; [2~
-## 12    12 religion    Religion      dbl+lbl  &quot;&quot;     &quot;[1] Muslim; [2] Christian; ~
-## 13    13 newspaper   Read newspap~ dbl+lbl  &quot;&quot;     &quot;[0] no; [1] yes&quot;            
-## 14    14 radio       Listen to ra~ dbl+lbl  &quot;&quot;     &quot;[0] no; [1] yes&quot;            
-## 15    15 tv          Watch TV?     dbl+lbl  &quot;&quot;     &quot;[0] no; [1] yes&quot;            
-## 16    16 ideal_nb_c~ Ideal number~ dbl+lbl  &quot;&quot;     &quot;[96] don&#39;t know; [99] missi~
-## 17    17 test        Ever tested ~ dbl+lbl  &quot;&quot;     &quot;[0] no; [1] yes; [9] missin~</code></pre>
+##      pos variable          label       col_type levels value_labels             
+##    &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;                    
+##  1     1 id_woman          Woman Id    dbl      &quot;&quot;     &quot;&quot;                       
+##  2     2 id_household      Household ~ dbl      &quot;&quot;     &quot;&quot;                       
+##  3     3 weight            Sample wei~ dbl      &quot;&quot;     &quot;&quot;                       
+##  4     4 interview_date    Interview ~ date     &quot;&quot;     &quot;&quot;                       
+##  5     5 date_of_birth     Date of bi~ date     &quot;&quot;     &quot;&quot;                       
+##  6     6 age               Age at las~ dbl      &quot;&quot;     &quot;&quot;                       
+##  7     7 residency         Urban / ru~ dbl+lbl  &quot;&quot;     &quot;[1] urban; [2] rural&quot;   
+##  8     8 region            Region      dbl+lbl  &quot;&quot;     &quot;[1] North; [2] East; [3~
+##  9     9 instruction       Level of i~ dbl+lbl  &quot;&quot;     &quot;[0] none; [1] primary; ~
+## 10    10 employed          Employed?   dbl+lbl  &quot;&quot;     &quot;[0] no; [1] yes; [9] mi~
+## 11    11 matri             Matrimonia~ dbl+lbl  &quot;&quot;     &quot;[0] single; [1] married~
+## 12    12 religion          Religion    dbl+lbl  &quot;&quot;     &quot;[1] Muslim; [2] Christi~
+## 13    13 newspaper         Read newsp~ dbl+lbl  &quot;&quot;     &quot;[0] no; [1] yes&quot;        
+## 14    14 radio             Listen to ~ dbl+lbl  &quot;&quot;     &quot;[0] no; [1] yes&quot;        
+## 15    15 tv                Watch TV?   dbl+lbl  &quot;&quot;     &quot;[0] no; [1] yes&quot;        
+## 16    16 ideal_nb_children Ideal numb~ dbl+lbl  &quot;&quot;     &quot;[96] don&#39;t know; [99] m~
+## 17    17 test              Ever teste~ dbl+lbl  &quot;&quot;     &quot;[0] no; [1] yes; [9] mi~</code></pre>
 <p>Alternatively, you can use <code>lookfor_to_long_format()</code> to transform results into a long format with one row per factor level and per value label.</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">look_for</span>(women) <span class="sc">%&gt;%</span> <span class="fu">lookfor_to_long_format</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 41 x 6
-##      pos variable      label                        col_type levels value_labels
-##    &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;                        &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;       
-##  1     1 id_woman      Woman Id                     dbl      &lt;NA&gt;   &lt;NA&gt;        
-##  2     2 id_household  Household Id                 dbl      &lt;NA&gt;   &lt;NA&gt;        
-##  3     3 weight        Sample weight                dbl      &lt;NA&gt;   &lt;NA&gt;        
-##  4     4 interview_da~ Interview date               date     &lt;NA&gt;   &lt;NA&gt;        
-##  5     5 date_of_birth Date of birth                date     &lt;NA&gt;   &lt;NA&gt;        
-##  6     6 age           Age at last anniversary (in~ dbl      &lt;NA&gt;   &lt;NA&gt;        
-##  7     7 residency     Urban / rural residency      dbl+lbl  &lt;NA&gt;   [1] urban   
-##  8     7 residency     Urban / rural residency      dbl+lbl  &lt;NA&gt;   [2] rural   
-##  9     8 region        Region                       dbl+lbl  &lt;NA&gt;   [1] North   
-## 10     8 region        Region                       dbl+lbl  &lt;NA&gt;   [2] East    
+##      pos variable       label                       col_type levels value_labels
+##    &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;                       &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;       
+##  1     1 id_woman       Woman Id                    dbl      &lt;NA&gt;   &lt;NA&gt;        
+##  2     2 id_household   Household Id                dbl      &lt;NA&gt;   &lt;NA&gt;        
+##  3     3 weight         Sample weight               dbl      &lt;NA&gt;   &lt;NA&gt;        
+##  4     4 interview_date Interview date              date     &lt;NA&gt;   &lt;NA&gt;        
+##  5     5 date_of_birth  Date of birth               date     &lt;NA&gt;   &lt;NA&gt;        
+##  6     6 age            Age at last anniversary (i~ dbl      &lt;NA&gt;   &lt;NA&gt;        
+##  7     7 residency      Urban / rural residency     dbl+lbl  &lt;NA&gt;   [1] urban   
+##  8     7 residency      Urban / rural residency     dbl+lbl  &lt;NA&gt;   [2] rural   
+##  9     8 region         Region                      dbl+lbl  &lt;NA&gt;   [1] North   
+## 10     8 region         Region                      dbl+lbl  &lt;NA&gt;   [2] East    
 ## # ... with 31 more rows</code></pre>
 <p>Both can be combined:</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">look_for</span>(women) <span class="sc">%&gt;%</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lookfor_to_long_format</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">convert_list_columns_to_character</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 41 x 6
-##      pos variable      label                        col_type levels value_labels
-##    &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;                        &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;       
-##  1     1 id_woman      Woman Id                     dbl      &lt;NA&gt;   &lt;NA&gt;        
-##  2     2 id_household  Household Id                 dbl      &lt;NA&gt;   &lt;NA&gt;        
-##  3     3 weight        Sample weight                dbl      &lt;NA&gt;   &lt;NA&gt;        
-##  4     4 interview_da~ Interview date               date     &lt;NA&gt;   &lt;NA&gt;        
-##  5     5 date_of_birth Date of birth                date     &lt;NA&gt;   &lt;NA&gt;        
-##  6     6 age           Age at last anniversary (in~ dbl      &lt;NA&gt;   &lt;NA&gt;        
-##  7     7 residency     Urban / rural residency      dbl+lbl  &lt;NA&gt;   [1] urban   
-##  8     7 residency     Urban / rural residency      dbl+lbl  &lt;NA&gt;   [2] rural   
-##  9     8 region        Region                       dbl+lbl  &lt;NA&gt;   [1] North   
-## 10     8 region        Region                       dbl+lbl  &lt;NA&gt;   [2] East    
+##      pos variable       label                       col_type levels value_labels
+##    &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;                       &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;       
+##  1     1 id_woman       Woman Id                    dbl      &lt;NA&gt;   &lt;NA&gt;        
+##  2     2 id_household   Household Id                dbl      &lt;NA&gt;   &lt;NA&gt;        
+##  3     3 weight         Sample weight               dbl      &lt;NA&gt;   &lt;NA&gt;        
+##  4     4 interview_date Interview date              date     &lt;NA&gt;   &lt;NA&gt;        
+##  5     5 date_of_birth  Date of birth               date     &lt;NA&gt;   &lt;NA&gt;        
+##  6     6 age            Age at last anniversary (i~ dbl      &lt;NA&gt;   &lt;NA&gt;        
+##  7     7 residency      Urban / rural residency     dbl+lbl  &lt;NA&gt;   [1] urban   
+##  8     7 residency      Urban / rural residency     dbl+lbl  &lt;NA&gt;   [2] rural   
+##  9     8 region         Region                      dbl+lbl  &lt;NA&gt;   [1] North   
+## 10     8 region         Region                      dbl+lbl  &lt;NA&gt;   [2] East    
 ## # ... with 31 more rows</code></pre>
 </div>
 

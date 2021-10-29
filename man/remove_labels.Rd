@@ -7,13 +7,18 @@
 \alias{remove_user_na}
 \title{Remove variable label, value labels and user defined missing values}
 \usage{
-remove_labels(x, user_na_to_na = FALSE, keep_var_label = FALSE)
+remove_labels(
+  x,
+  user_na_to_na = FALSE,
+  keep_var_label = FALSE,
+  user_na_to_tagged_na = FALSE
+)
 
 remove_var_label(x)
 
 remove_val_labels(x)
 
-remove_user_na(x, user_na_to_na = FALSE)
+remove_user_na(x, user_na_to_na = FALSE, user_na_to_tagged_na = FALSE)
 }
 \arguments{
 \item{x}{A vector or a data frame.}
@@ -21,6 +26,10 @@ remove_user_na(x, user_na_to_na = FALSE)
 \item{user_na_to_na}{Convert user defined missing values into \code{NA}?}
 
 \item{keep_var_label}{Keep variable label?}
+
+\item{user_na_to_tagged_na}{Convert user defined missing values into tagged \code{NA}?
+It could be applied only to numeric vectors. Note that integer labelled vectors
+will be converted to double labelled vectors.}
 }
 \description{
 Use \code{remove_var_label()} to remove variable label, \code{remove_val_labels()}
@@ -37,14 +46,12 @@ If you prefer to convert variables with value labels into factors, use \code{\li
 or use \code{\link[=unlabelled]{unlabelled()}}.
 }
 \examples{
-x1 <- labelled_spss(1:10, c(Good = 1, Bad = 8), na_values = c(9, 10))
-var_label(x1) <- "A variable"
-x1
+x <- labelled_spss(1:10, c(Good = 1, Bad = 8), na_values = c(9, 10))
+var_label(x) <- "A variable"
+x
 
-x2 <- remove_labels(x1)
-x2
-x3 <- remove_labels(x1, user_na_to_na = TRUE)
-x3
-x4 <- remove_user_na(x1, user_na_to_na = TRUE)
-x4
+remove_labels(x)
+remove_labels(x, user_na_to_na = TRUE)
+remove_user_na(x, user_na_to_na = TRUE)
+remove_user_na(x, user_na_to_tagged_na = TRUE)
 }

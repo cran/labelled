@@ -1,14 +1,33 @@
 #' Get / Set SPSS missing values
 #'
-#' @param x A vector.
+#' @param x A vector (or a data frame).
 #' @param value A vector of values that should also be considered as missing
 #' (for `na_values`) or a numeric vector of length two giving the (inclusive)
 #' extents of the range (for `na_values`, use `-Inf` and `Inf` if you
 #' want the range to be open ended).
 #' @details
 #' See [haven::labelled_spss()] for a presentation of SPSS's user defined missing values.
-#' Note that [base::is.na()] will return `TRUE` for user defined missing values.
-#' You can use [user_na_to_na()] to convert user defined missing values to `NA`.
+#'
+#' Note that [base::is.na()] will return `TRUE` for user defined missing values. It will
+#' also return `TRUE` for regular `NA` values. If you want to test if a specific
+#' value is a user NA but not a regular `NA`, use `is_user_na()`. If you want to
+#' test if a value is a regular `NA` but not a user NA, not a tagged NA, use
+#' `is_regular_na()`.
+#'
+#' You can use [user_na_to_na()] to convert user defined missing values to regular `NA`.
+#' Note that any value label attached to a user defined missing value will be lost.
+#' [user_na_to_regular_na()] is a synonym of [user_na_to_na()].
+#'
+#' The method [user_na_to_tagged_na()] will convert user defined missing values
+#' into [haven::tagged_na()], preserving value labels. Please note that [haven::tagged_na()]
+#' are defined only for double vectors. Therefore, integer `haven_labelled_spss`
+#' vectors will be converted into double `haven_labelled` vectors; and
+#' [user_na_to_tagged_na()] cannot be applied to a character `haven_labelled_spss`
+#' vector.
+#'
+#' [tagged_na_to_user_na()] is the opposite of [user_na_to_tagged_na()] and convert
+#' tagged `NA` into user defined missing values.
+#'
 #' @return
 #'   `na_values()` will return a vector of values that should also be considered as missing.
 #'   `na_range()` will return a numeric vector of length two giving the (inclusive)
@@ -20,7 +39,10 @@
 #' na_values(v) <- 9
 #' na_values(v)
 #' v
-#' is.na(v)
+#'
+#' is.na(v) # TRUE for the 6th and 10th values
+#' is_user_na(v) # TRUE only for the 6th value
+#'
 #' user_na_to_na(v)
 #' na_values(v) <- NULL
 #' v
@@ -28,6 +50,17 @@
 #' na_range(v)
 #' v
 #' user_na_to_na(v)
+#' user_na_to_tagged_na(v)
+#'
+#' # it is not recommended to mix user NAs and tagged NAs
+#' x <- c(NA, 9, tagged_na("a"))
+#' na_values(x) <- 9
+#' x
+#' is.na(x)
+#' is_user_na(x)
+#' is_tagged_na(x)
+#' is_regular_na(x)
+#'
 #' @export
 na_values <- function(x) {
   UseMethod("na_values")
@@ -61,6 +94,13 @@ na_values.data.frame <- function(x) {
     x <- labelled_spss(x, val_labels(x), na_values = value, na_range = attr(x, "na_range"), label = var_label(x))
   # else do nothing
   x
+}
+
+#' @export
+`na_values<-.factor` <- function(x, value) {
+  if (!is.null(value))
+    stop("`na_values()` cannot be applied to factors.")
+  x %>% remove_attributes("na_values")
 }
 
 #' @export
@@ -140,6 +180,13 @@ na_range.data.frame <- function(x) {
 }
 
 #' @export
+`na_range<-.factor` <- function(x, value) {
+  if (!is.null(value))
+    stop("`na_range()` cannot be applied to factors.")
+  x %>% remove_attributes("na_range")
+}
+
+#' @export
 `na_range<-.haven_labelled` <- function(x, value) {
   if (is.null(value)) {
     attr(x, "na_range") <- NULL
@@ -194,7 +241,7 @@ na_range.data.frame <- function(x) {
 #'  copy of `.data`.
 #' @examples
 #' if (require(dplyr)) {
-#'   # setting value labels
+#'   # setting value label and user NAs
 #'   df <- tibble(s1 = c("M", "M", "F", "F"), s2 = c(1, 1, 2, 9)) %>%
 #'     set_value_labels(s2 = c(yes = 1, no = 2)) %>%
 #'     set_na_values(s2 = 9)
@@ -239,13 +286,41 @@ set_na_range <- function(.data, ..., .values = NA, .strict = TRUE) {
   .data
 }
 
+# internal function to test if a value is user_na
+test_if_user_na <- function(val, na_values = NULL, na_range = NULL) {
+  if (inherits(val, "haven_labelled"))
+    val <- unclass(val)
+  miss <- rep.int(FALSE, length(val))
+  if (!is.null(na_values)) {
+    miss <- miss | val %in% na_values
+  }
+  if (!is.null(na_range) & is.numeric(val)) {
+    miss <- miss | (val >= na_range[1] & val <= na_range[2] & !is.na(val))
+  }
+  miss
+}
 
+#' @rdname na_values
+#' @export
+is_user_na <- function(x) {
+  test_if_user_na(x, na_values(x), na_range(x))
+}
+
+#' @rdname na_values
+#' @export
+is_regular_na <- function(x) {
+  is.na(x) & !is_user_na(x) & !is_tagged_na(x)
+}
 
 #' @rdname na_values
 #' @export
 user_na_to_na <- function(x) {
   UseMethod("user_na_to_na")
 }
+
+#' @rdname na_values
+#' @export
+user_na_to_regular_na <- user_na_to_na
 
 #' @export
 user_na_to_na.default <- function(x) {
@@ -264,4 +339,28 @@ user_na_to_na.data.frame <- function(x) {
   x
 }
 
+
+
+#' @rdname na_values
+#' @export
+user_na_to_tagged_na <- function(x) {
+  UseMethod("user_na_to_tagged_na")
+}
+
+#' @export
+user_na_to_tagged_na.default <- function(x) {
+  # do nothing
+  x
+}
+
+#' @export
+user_na_to_tagged_na.haven_labelled_spss <- function(x) {
+  remove_user_na(x, user_na_to_tagged_na = TRUE)
+}
+
+#' @export
+user_na_to_tagged_na.data.frame <- function(x) {
+  x[] <- lapply(x, user_na_to_tagged_na)
+  x
+}
 

@@ -2,16 +2,20 @@
 % Please edit documentation in R/to_character.R
 \name{to_character}
 \alias{to_character}
+\alias{to_character.double}
 \alias{to_character.haven_labelled}
 \title{Convert input to a character vector}
 \usage{
 to_character(x, ...)
+
+\method{to_character}{double}(x, explicit_tagged_na = FALSE, ...)
 
 \method{to_character}{haven_labelled}(
   x,
   levels = c("labels", "values", "prefixed"),
   nolabel_to_na = FALSE,
   user_na_to_na = FALSE,
+  explicit_tagged_na = FALSE,
   ...
 )
 }
@@ -19,6 +23,8 @@ to_character(x, ...)
 \item{x}{Object to coerce to a character vector.}
 
 \item{...}{Other arguments passed down to method.}
+
+\item{explicit_tagged_na}{should tagged NA be kept?}
 
 \item{levels}{What should be used for the factor levels: the labels, the values or labels prefixed with values?}
 

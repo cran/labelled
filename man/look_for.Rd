@@ -5,6 +5,7 @@
 \alias{lookfor}
 \alias{generate_dictionary}
 \alias{print.look_for}
+\alias{look_for_and_select}
 \alias{convert_list_columns_to_character}
 \alias{lookfor_to_long_format}
 \title{Look for keywords variable names and descriptions / Create a data dictionary}
@@ -16,6 +17,7 @@ look_for(
   data,
   ...,
   labels = TRUE,
+  values = TRUE,
   ignore.case = TRUE,
   details = c("basic", "none", "full")
 )
@@ -24,6 +26,7 @@ lookfor(
   data,
   ...,
   labels = TRUE,
+  values = TRUE,
   ignore.case = TRUE,
   details = c("basic", "none", "full")
 )
@@ -32,11 +35,20 @@ generate_dictionary(
   data,
   ...,
   labels = TRUE,
+  values = TRUE,
   ignore.case = TRUE,
   details = c("basic", "none", "full")
 )
 
 \method{print}{look_for}(x, ...)
+
+look_for_and_select(
+  data,
+  ...,
+  labels = TRUE,
+  values = TRUE,
+  ignore.case = TRUE
+)
 
 convert_list_columns_to_character(x)
 
@@ -50,6 +62,8 @@ formatted as a regular expression suitable for a \code{\link[base:grep]{base::gr
 displays all variables if not specified}
 
 \item{labels}{whether or not to search variable labels (descriptions); \code{TRUE} by default}
+
+\item{values}{whether or not to search within values (factor levels or value labels); \code{TRUE} by default}
 
 \item{ignore.case}{whether or not to make the keywords case sensitive;
 \code{TRUE} by default (case is ignored during matching)}
@@ -65,7 +79,7 @@ a tibble data frame featuring the variable position, name and description
 \description{
 \code{look_for} emulates the \code{lookfor} Stata command in \R. It supports
 searching into the variable names of regular \R data frames as well as into
-variable labels descriptions.
+variable labels descriptions, factor levels and value labels.
 The command is meant to help users finding variables in large datasets.
 }
 \details{
@@ -88,6 +102,10 @@ and per value label.
 
 Use \code{convert_list_columns_to_character()} to convert named list columns into character vectors
 (see examples).
+
+\code{look_for_and_select()} is a shortcut for selecting some variables and
+applying \code{dplyr::select()} to return a data frame with only the selected
+variables.
 }
 \examples{
 look_for(iris)
@@ -95,6 +113,7 @@ look_for(iris)
 # Look for a single keyword.
 look_for(iris, "petal")
 look_for(iris, "s")
+iris \%>\% look_for_and_select("s") \%>\% head()
 
 # Look for with a regular expression
 look_for(iris, "petal|species")
@@ -104,6 +123,9 @@ look_for(iris, "s$")
 look_for(iris, "pet", "sp")
 look_for(iris, "pet", "sp", "width")
 look_for(iris, "Pet", "sp", "width", ignore.case = FALSE)
+
+# Look_for can search within factor levels or value labels
+look_for(iris, "vers")
 
 # Quicker search without variable details
 look_for(iris, details = "none")
@@ -131,6 +153,7 @@ look_for(iris) \%>\%
   data(fertility, package = "questionr")
   look_for(children)
   look_for(children, "id")
+  children \%>\% look_for_and_select("id")
   look_for(children) \%>\%
     lookfor_to_long_format() \%>\%
     convert_list_columns_to_character()
