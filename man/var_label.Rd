@@ -2,11 +2,14 @@
 % Please edit documentation in R/var_label.R
 \name{var_label}
 \alias{var_label}
+\alias{var_label.data.frame}
 \alias{var_label<-}
 \alias{set_variable_labels}
 \title{Get / Set a variable label}
 \usage{
-var_label(x, unlist = FALSE)
+var_label(x, ...)
+
+\method{var_label}{data.frame}(x, unlist = FALSE, null_action = c("keep", "fill", "skip"), ...)
 
 var_label(x) <- value
 
@@ -15,15 +18,19 @@ set_variable_labels(.data, ..., .labels = NA, .strict = TRUE)
 \arguments{
 \item{x}{a vector or a data.frame}
 
+\item{...}{name-value pairs of variable labels (see examples)}
+
 \item{unlist}{for data frames, return a named vector instead of a list}
+
+\item{null_action}{for data frames, by default \code{NULL} will be returned for
+columns with no variable label. Use \code{"fill"} to populate with the column name
+instead, or \code{"skip"} to remove such values from the returned list.}
 
 \item{value}{a character string or \code{NULL} to remove the label
 For data frames, it could also be a named list or a character vector
 of same length as the number of columns in \code{x}.}
 
-\item{.data}{a data frame}
-
-\item{...}{name-value pairs of variable labels (see examples)}
+\item{.data}{a data frame or a vector}
 
 \item{.labels}{variable labels to be applied to the data.frame,
 using the same syntax as \code{value} in \code{var_label(df) <- value}.}
@@ -40,8 +47,8 @@ Get / Set a variable label
 \details{
 For data frames, if \code{value} is a named list, only elements whose name will
 match a column of the data frame will be taken into account. If \code{value}
-is a character vector, labels should in the same order as the columns of the
-data.frame.
+is a character vector, labels should in the same order as the columns of
+the data.frame.
 }
 \note{
 \code{set_variable_labels()} could be used with \pkg{dplyr} syntax.
@@ -62,9 +69,13 @@ var_label(iris) <- c(
 var_label(iris)
 var_label(iris) <- list(
   Petal.Width = "width of the petal",
-  Petal.Length = "length of the petal"
+  Petal.Length = "length of the petal",
+  Sepal.Width = NULL,
+  Sepal.Length = NULL
 )
 var_label(iris)
+var_label(iris, null_action = "fill")
+var_label(iris, null_action = "skip")
 var_label(iris, unlist = TRUE)
 
 if (require(dplyr)) {
@@ -98,5 +109,11 @@ if (require(dplyr)) {
       set_variable_labels(.labels = to_sentence_case(names(iris)))
     var_label(iris)
   }
+
+  # example with a vector
+  v <- 1:5
+  v <- v \%>\% set_variable_labels("a variable label")
+  v
+  v \%>\% set_variable_labels(NULL)
 }
 }

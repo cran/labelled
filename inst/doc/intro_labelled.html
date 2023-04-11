@@ -30,23 +30,23 @@ document.addEventListener('DOMContentLoaded', function(e) {
 </script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
@@ -64,55 +64,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -383,7 +382,10 @@ functions.</p>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">var_label</span>(iris<span class="sc">$</span>Sepal.Length) <span class="ot">&lt;-</span> <span class="st">&quot;Length of sepal&quot;</span></span></code></pre></div>
 <p>It’s possible to add a variable label to several columns of a data
 frame using a named list.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var_label</span>(iris) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">Petal.Length =</span> <span class="st">&quot;Length of petal&quot;</span>, <span class="at">Petal.Width =</span> <span class="st">&quot;Width of Petal&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var_label</span>(iris) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Petal.Length =</span> <span class="st">&quot;Length of petal&quot;</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Petal.Width =</span> <span class="st">&quot;Width of Petal&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>To get the variable label, simply call <code>var_label()</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var_label</span>(iris<span class="sc">$</span>Petal.Width)</span></code></pre></div>
 <pre><code>## [1] &quot;Width of Petal&quot;</code></pre>
@@ -410,18 +412,18 @@ data viewer.</p>
 <p>You can display and search through variable names and labels with
 <code>look_for()</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">look_for</span>(iris)</span></code></pre></div>
-<pre><code>##  pos variable     label           col_type values    
-##  1   Sepal.Length —               dbl                
-##  2   Sepal.Width  —               dbl                
-##  3   Petal.Length Length of petal dbl                
-##  4   Petal.Width  Width of Petal  dbl                
-##  5   Species      —               fct      setosa    
-##                                            versicolor
-##                                            virginica</code></pre>
+<pre><code>##  pos variable     label           col_type missing values    
+##  1   Sepal.Length —               dbl      0                 
+##  2   Sepal.Width  —               dbl      0                 
+##  3   Petal.Length Length of petal dbl      0                 
+##  4   Petal.Width  Width of Petal  dbl      0                 
+##  5   Species      —               fct      0       setosa    
+##                                                    versicolor
+##                                                    virginica</code></pre>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">look_for</span>(iris, <span class="st">&quot;pet&quot;</span>)</span></code></pre></div>
-<pre><code>##  pos variable     label           col_type values
-##  3   Petal.Length Length of petal dbl            
-##  4   Petal.Width  Width of Petal  dbl</code></pre>
+<pre><code>##  pos variable     label           col_type missing values
+##  3   Petal.Length Length of petal dbl      0             
+##  4   Petal.Width  Width of Petal  dbl      0</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">look_for</span>(iris, <span class="at">details =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>##  pos variable     label          
 ##  1   Sepal.Length —              
@@ -436,8 +438,11 @@ data viewer.</p>
 <code>labelled()</code> function. It’s not mandatory to provide a label
 for each value observed in your vector. You can also provide a label for
 values not observed.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">labelled</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">9</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="cn">NA</span>), <span class="fu">c</span>(<span class="at">yes =</span> <span class="dv">1</span>, <span class="at">no =</span> <span class="dv">3</span>, <span class="st">&quot;don&#39;t know&quot;</span> <span class="ot">=</span> <span class="dv">8</span>, <span class="at">refused =</span> <span class="dv">9</span>))</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>v</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">labelled</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="cn">NA</span>),</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">yes =</span> <span class="dv">1</span>, <span class="at">no =</span> <span class="dv">3</span>, <span class="st">&quot;don&#39;t know&quot;</span> <span class="ot">=</span> <span class="dv">8</span>, <span class="at">refused =</span> <span class="dv">9</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>v</span></code></pre></div>
 <pre><code>## &lt;labelled&lt;double&gt;[10]&gt;
 ##  [1]  1  2  2  2  3  9  1  3  2 NA
 ## 
@@ -574,7 +579,7 @@ a data frame.</p>
 <h2>Sorting value labels</h2>
 <p>Value labels are sorted by default in the order they have been
 created.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">9</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="cn">NA</span>)</span>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="cn">NA</span>)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">val_label</span>(v, <span class="dv">1</span>) <span class="ot">&lt;-</span> <span class="st">&quot;yes&quot;</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">val_label</span>(v, <span class="dv">3</span>) <span class="ot">&lt;-</span> <span class="st">&quot;no&quot;</span></span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">val_label</span>(v, <span class="dv">9</span>) <span class="ot">&lt;-</span> <span class="st">&quot;refused&quot;</span></span>
@@ -643,8 +648,11 @@ internal <code>NA</code> values.</p>
 <code>na_values()</code> and <code>na_range()</code>. Note that
 <code>is.na()</code> will return <code>TRUE</code> as well for
 user-defined missing values.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">labelled</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">9</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="cn">NA</span>), <span class="fu">c</span>(<span class="at">yes =</span> <span class="dv">1</span>, <span class="at">no =</span> <span class="dv">3</span>, <span class="st">&quot;don&#39;t know&quot;</span> <span class="ot">=</span> <span class="dv">9</span>))</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>v</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">labelled</span>(</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="cn">NA</span>),</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">yes =</span> <span class="dv">1</span>, <span class="at">no =</span> <span class="dv">3</span>, <span class="st">&quot;don&#39;t know&quot;</span> <span class="ot">=</span> <span class="dv">9</span>)</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>v</span></code></pre></div>
 <pre><code>## &lt;labelled&lt;double&gt;[10]&gt;
 ##  [1]  1  2  2  2  3  9  1  3  2 NA
 ## 
@@ -767,7 +775,7 @@ these values to <code>NA</code>.</p>
 <p>In some cases, values who don’t have an attached value label could be
 considered as missing. <code>nolabel_to_na()</code> will convert them to
 <code>NA</code>.</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">labelled</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">9</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="cn">NA</span>), <span class="fu">c</span>(<span class="at">yes =</span> <span class="dv">1</span>, <span class="at">maybe =</span> <span class="dv">2</span>, <span class="at">no =</span> <span class="dv">3</span>))</span>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">labelled</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="cn">NA</span>), <span class="fu">c</span>(<span class="at">yes =</span> <span class="dv">1</span>, <span class="at">maybe =</span> <span class="dv">2</span>, <span class="at">no =</span> <span class="dv">3</span>))</span>
 <span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>v</span></code></pre></div>
 <pre><code>## &lt;labelled&lt;double&gt;[10]&gt;
 ##  [1]  1  2  2  2  3  9  1  3  2 NA
@@ -807,8 +815,11 @@ Only labelled vectors will be impacted.</p>
 <h2>Converting to factor</h2>
 <p>A labelled vector could easily be converted to a factor with
 <code>to_factor()</code>.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">labelled</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">9</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="cn">NA</span>), <span class="fu">c</span>(<span class="at">yes =</span> <span class="dv">1</span>, <span class="at">no =</span> <span class="dv">3</span>, <span class="st">&quot;don&#39;t know&quot;</span> <span class="ot">=</span> <span class="dv">8</span>, <span class="at">refused =</span> <span class="dv">9</span>))</span>
-<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>v</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">labelled</span>(</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="cn">NA</span>),</span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">yes =</span> <span class="dv">1</span>, <span class="at">no =</span> <span class="dv">3</span>, <span class="st">&quot;don&#39;t know&quot;</span> <span class="ot">=</span> <span class="dv">8</span>, <span class="at">refused =</span> <span class="dv">9</span>)</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>v</span></code></pre></div>
 <pre><code>## &lt;labelled&lt;double&gt;[10]&gt;
 ##  [1]  1  2  2  2  3  9  1  3  2 NA
 ## 
@@ -1027,60 +1038,60 @@ numeric or character vector by applying
 <span id="cb139-4"><a href="#cb139-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">c =</span> <span class="fu">labelled</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">No =</span> <span class="dv">1</span>, <span class="at">Yes =</span> <span class="dv">2</span>, <span class="at">DK =</span> <span class="dv">3</span>)),</span>
 <span id="cb139-5"><a href="#cb139-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">d =</span> <span class="fu">labelled</span>(<span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">No =</span> <span class="st">&quot;a&quot;</span>, <span class="at">Yes =</span> <span class="st">&quot;b&quot;</span>)),</span>
 <span id="cb139-6"><a href="#cb139-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">e =</span> <span class="fu">labelled_spss</span>(</span>
-<span id="cb139-7"><a href="#cb139-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb139-7"><a href="#cb139-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
 <span id="cb139-8"><a href="#cb139-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">No =</span> <span class="dv">1</span>, <span class="at">Yes =</span> <span class="dv">2</span>),</span>
 <span id="cb139-9"><a href="#cb139-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">na_values =</span> <span class="dv">9</span></span>
 <span id="cb139-10"><a href="#cb139-10" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb139-11"><a href="#cb139-11" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb139-12"><a href="#cb139-12" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">look_for</span>()</span></code></pre></div>
-<pre><code>##  pos variable label col_type values 
-##  1   a        —     dbl+lbl  [1] No 
-##                              [2] Yes
-##  2   b        —     dbl+lbl  [1] No 
-##                              [2] Yes
-##                              [3] DK 
-##  3   c        —     dbl+lbl  [1] No 
-##                              [2] Yes
-##                              [3] DK 
-##  4   d        —     chr+lbl  [a] No 
-##                              [b] Yes
-##  5   e        —     dbl+lbl  [1] No 
-##                              [2] Yes</code></pre>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unlabelled</span>(df)<span class="sc">%&gt;%</span> <span class="fu">look_for</span>()</span></code></pre></div>
-<pre><code>##  pos variable label col_type values
-##  1   a        —     dbl            
-##  2   b        —     fct      No    
-##                              Yes   
-##                              DK    
-##  3   c        —     fct      No    
-##                              Yes   
-##                              DK    
-##  4   d        —     chr            
-##  5   e        —     fct      No    
-##                              Yes</code></pre>
+<pre><code>##  pos variable label col_type missing values 
+##  1   a        —     dbl+lbl  0       [1] No 
+##                                      [2] Yes
+##  2   b        —     dbl+lbl  0       [1] No 
+##                                      [2] Yes
+##                                      [3] DK 
+##  3   c        —     dbl+lbl  0       [1] No 
+##                                      [2] Yes
+##                                      [3] DK 
+##  4   d        —     chr+lbl  0       [a] No 
+##                                      [b] Yes
+##  5   e        —     dbl+lbl  1       [1] No 
+##                                      [2] Yes</code></pre>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unlabelled</span>(df) <span class="sc">%&gt;%</span> <span class="fu">look_for</span>()</span></code></pre></div>
+<pre><code>##  pos variable label col_type missing values
+##  1   a        —     dbl      0             
+##  2   b        —     fct      0       No    
+##                                      Yes   
+##                                      DK    
+##  3   c        —     fct      0       No    
+##                                      Yes   
+##                                      DK    
+##  4   d        —     chr      0             
+##  5   e        —     fct      1       No    
+##                                      Yes</code></pre>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unlabelled</span>(df, <span class="at">user_na_to_na =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">look_for</span>()</span></code></pre></div>
-<pre><code>##  pos variable label col_type values
-##  1   a        —     dbl            
-##  2   b        —     fct      No    
-##                              Yes   
-##                              DK    
-##  3   c        —     fct      No    
-##                              Yes   
-##                              DK    
-##  4   d        —     chr            
-##  5   e        —     fct      No    
-##                              Yes</code></pre>
+<pre><code>##  pos variable label col_type missing values
+##  1   a        —     dbl      0             
+##  2   b        —     fct      0       No    
+##                                      Yes   
+##                                      DK    
+##  3   c        —     fct      0       No    
+##                                      Yes   
+##                                      DK    
+##  4   d        —     chr      0             
+##  5   e        —     fct      1       No    
+##                                      Yes</code></pre>
 <div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unlabelled</span>(df, <span class="at">drop_unused_labels =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">look_for</span>()</span></code></pre></div>
-<pre><code>##  pos variable label col_type values
-##  1   a        —     dbl            
-##  2   b        —     fct      No    
-##                              Yes   
-##                              DK    
-##  3   c        —     fct      No    
-##                              Yes   
-##  4   d        —     chr            
-##  5   e        —     fct      No    
-##                              Yes</code></pre>
+<pre><code>##  pos variable label col_type missing values
+##  1   a        —     dbl      0             
+##  2   b        —     fct      0       No    
+##                                      Yes   
+##                                      DK    
+##  3   c        —     fct      0       No    
+##                                      Yes   
+##  4   d        —     chr      0             
+##  5   e        —     fct      1       No    
+##                                      Yes</code></pre>
 </div>
 <div id="importing-labelled-data" class="section level2">
 <h2>Importing labelled data</h2>
@@ -1130,7 +1141,7 @@ data.set into a labelled data frame.</p>
 <span id="cb147-13"><a href="#cb147-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb147-14"><a href="#cb147-14" aria-hidden="true" tabindex="-1"></a> <span class="co"># from memisc</span></span>
 <span id="cb147-15"><a href="#cb147-15" aria-hidden="true" tabindex="-1"></a> <span class="fu">library</span>(memisc)</span>
-<span id="cb147-16"><a href="#cb147-16" aria-hidden="true" tabindex="-1"></a> nes1948.por <span class="ot">&lt;-</span> <span class="fu">UnZip</span>(<span class="st">&quot;anes/NES1948.ZIP&quot;</span>, <span class="st">&quot;NES1948.POR&quot;</span>, <span class="at">package=</span><span class="st">&quot;memisc&quot;</span>)</span>
+<span id="cb147-16"><a href="#cb147-16" aria-hidden="true" tabindex="-1"></a> nes1948.por <span class="ot">&lt;-</span> <span class="fu">UnZip</span>(<span class="st">&quot;anes/NES1948.ZIP&quot;</span>, <span class="st">&quot;NES1948.POR&quot;</span>, <span class="at">package =</span> <span class="st">&quot;memisc&quot;</span>)</span>
 <span id="cb147-17"><a href="#cb147-17" aria-hidden="true" tabindex="-1"></a> nes1948 <span class="ot">&lt;-</span> <span class="fu">spss.portable.file</span>(nes1948.por)</span>
 <span id="cb147-18"><a href="#cb147-18" aria-hidden="true" tabindex="-1"></a> df <span class="ot">&lt;-</span> <span class="fu">to_labelled</span>(nes1948)</span>
 <span id="cb147-19"><a href="#cb147-19" aria-hidden="true" tabindex="-1"></a> ds <span class="ot">&lt;-</span> <span class="fu">as.data.set</span>(nes19480)</span>
@@ -1151,11 +1162,14 @@ functions <code>set_variable_labels()</code>,
 <pre><code>## Les objets suivants sont masqués depuis &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">s1 =</span> <span class="fu">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>), <span class="at">s2 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">s1 =</span> <span class="fu">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>), <span class="at">s2 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb152-2"><a href="#cb152-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_variable_labels</span>(<span class="at">s1 =</span> <span class="st">&quot;Sex&quot;</span>, <span class="at">s2 =</span> <span class="st">&quot;Question&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb152-3"><a href="#cb152-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_value_labels</span>(<span class="at">s1 =</span> <span class="fu">c</span>(<span class="at">Male =</span> <span class="st">&quot;M&quot;</span>, <span class="at">Female =</span> <span class="st">&quot;F&quot;</span>), <span class="at">s2 =</span> <span class="fu">c</span>(<span class="at">Yes =</span> <span class="dv">1</span>, <span class="at">No =</span> <span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## Warning: `data_frame()` was deprecated in tibble 1.1.0.
-## Please use `tibble()` instead.</code></pre>
+## ℹ Please use `tibble()` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
 <div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>s2</span></code></pre></div>
 <pre><code>## &lt;labelled&lt;double&gt;[3]&gt;: Question
 ## [1] 1 1 2
