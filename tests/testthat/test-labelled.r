@@ -150,6 +150,16 @@ test_that("value labels can be removed if missing values are defined", {
   expect_null(val_labels(x))
 })
 
+test_that("val_labels() null action", {
+  x <- labelled(1:10, c(Good = 1, Bad = 8))
+
+  val_labels(x, null_action = "labelled") <- NULL
+  expect_true(inherits(x, "haven_labelled"))
+
+  val_labels(x) <- NULL
+  expect_false(inherits(x, "haven_labelled"))
+})
+
 test_that("value labels to NULL remove class if na_Values et na_range are NULL", { # nolint
   x <- labelled_spss(1:10, c(Good = 1, Bad = 8))
   val_labels(x) <- NULL
@@ -324,6 +334,10 @@ test_that(" 'val_label<-' works properly", {
   expect_error(val_label(df, 2:3) <- "a")
 
   sub_df <- df[, -match("ch", names(df))]
+
+  v <- as.Date("2023-01-01")
+  l <- as.Date(c("The first day of 2023" = "2023-01-01"))
+  expect_error(val_labels(v) <- l)
 })
 
 test_that(" 'val_label<-.data.frame' works properly", {
@@ -377,7 +391,7 @@ test_that("remove_labels strips labelled attributes", {
   expect_equal(remove_labels(var), exp)
 })
 
-test_that("remove_labels returns variables not of class('labelled') unmodified", { #nolint
+test_that("remove_labels returns variables not of class('labelled') unmodified", { # nolint
   var <- c(1L, 98L, 99L)
   expect_equal(remove_labels(var), var)
 })
@@ -634,13 +648,15 @@ test_that("to_factor() and tagged NAs", {
   expect_equal(
     to_factor(x),
     structure(c(1L, 2L, NA, 1L, NA, 2L, NA, NA),
-              .Label = c("yes", "no"), class = "factor")
+      .Label = c("yes", "no"), class = "factor"
+    )
   )
   expect_equal(
     to_factor(x, explicit_tagged_na = TRUE),
     structure(c(1L, 2L, 4L, 1L, 5L, 2L, 4L, 3L),
-              .Label = c("yes", "no", "toto", "missing", "NA(z)"),
-              class = "factor")
+      .Label = c("yes", "no", "toto", "missing", "NA(z)"),
+      class = "factor"
+    )
   )
 })
 
@@ -700,6 +716,10 @@ test_that("set_value_labels replaces all value labels", {
   expect_equal(val_labels(df$s2), c(Yes = 1, No = 2))
   df <- set_value_labels(df, s2 = c(Yes = 1, Unknown = 9))
   expect_equal(val_labels(df$s2), c(Yes = 1, Unknown = 9))
+  df <- set_value_labels(df, s1 = NULL)
+  df <- set_value_labels(df, s2 = NULL, .null_action = "lab")
+  expect_false(inherits(df$s1, "haven_labelled"))
+  expect_true(inherits(df$s2, "haven_labelled"))
 
   v <- set_value_labels(1:10, c(low = 1, high = 10))
   expect_equal(val_labels(v), c(low = 1, high = 10))
@@ -843,7 +863,7 @@ test_that("set_variable_labels updates variable labels", {
 
 # missing values --------------------------------------------------------------
 
-test_that("it is possible to define missing values if no value labels were defined", {# nolint
+test_that("it is possible to define missing values if no value labels were defined", { # nolint
   x <- c(1, 2, 2, 9)
   na_values(x) <- 9
   expect_equal(na_values(x), 9)
@@ -876,6 +896,17 @@ test_that("dplyr::recode could be applied to character labelled vector", {
   expect_equal(x, labelled(c("a", "b", "b"), c(yes = "a", no = "b")))
 })
 
+test_that("dplyr::recode could handle NA with .combine_value_labels", {
+  x <- labelled(c(NA, 1:3), c(yes = 1, maybe = 2, no = 3))
+  y <- x %>% dplyr::recode(`2` = 0L, .combine_value_labels = TRUE)
+  expect_true(all(c(0, 1, 3) %in% val_labels(y)))
+
+  y <- x %>% dplyr::recode(`2` = 0L, `3` = 0L, .combine_value_labels = TRUE)
+  expect_true(all(c(0, 1) %in% val_labels(y)))
+  expect_equal(val_label(y, 0), "maybe / no")
+})
+
+
 # update_labelled ----------------------------------------
 
 test_that("update_labelled update previous haven's labelled objects but not Hmisc's labelled objects", { # nolint
@@ -895,7 +926,7 @@ test_that("update_labelled update previous haven's labelled objects but not Hmis
   expect_s3_class(update_labelled(df)$vHmisc, "labelled")
 })
 
-test_that("update_labelled update to haven_labelled_spss if there are na values", { #nolint
+test_that("update_labelled update to haven_labelled_spss if there are na values", { # nolint
   v1 <- structure(1:4,
     label = "label", labels = c(No = 1, Yes = 2),
     na_values = c(8, 9), class = c("labelled_spss", "labelled")
@@ -1015,7 +1046,8 @@ test_that("dplyr::recode works properly with labelled vectors", {
   x <- labelled(1:4, c(a = 1, b = 2, c = 3, d = 4))
 
   r <- dplyr::recode(
-    x, `1` = 1L, `2` = 1L, `3` = 2L, `4` = 2L,
+    x,
+    `1` = 1L, `2` = 1L, `3` = 2L, `4` = 2L,
     .combine_value_labels = TRUE
   )
   expect_equal(val_labels(r), c("a / b" = 1L, "c / d" = 2L))
@@ -1024,7 +1056,8 @@ test_that("dplyr::recode works properly with labelled vectors", {
   expect_equal(val_labels(r), c("a / b" = 1L, "c / d" = 3L))
 
   r <- dplyr::recode(
-    x, `2` = 1L, `4` = 3L,
+    x,
+    `2` = 1L, `4` = 3L,
     .combine_value_labels = TRUE,
     .sep = " or "
   )
@@ -1216,5 +1249,4 @@ test_that("var_label works with packed columns", {
     length(var_label(d, recurse = TRUE, unlist = TRUE)),
     5L
   )
-
 })
