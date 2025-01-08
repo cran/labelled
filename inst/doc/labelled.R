@@ -244,7 +244,7 @@ unlabelled(df, drop_unused_labels = TRUE) %>% look_for()
 ## -----------------------------------------------------------------------------
 library(dplyr)
 
-df <- data_frame(s1 = c("M", "M", "F"), s2 = c(1, 1, 2)) %>%
+df <- tibble(s1 = c("M", "M", "F"), s2 = c(1, 1, 2)) %>%
   set_variable_labels(s1 = "Sex", s2 = "Question") %>%
   set_value_labels(s1 = c(Male = "M", Female = "F"), s2 = c(Yes = 1, No = 2))
 df$s2
@@ -285,6 +285,6 @@ glimpse(women %>% unlabelled())
 
 ## -----------------------------------------------------------------------------
 glimpse(to_factor(women))
-glimpse(women %>% mutate_if(is.labelled, to_factor))
-glimpse(women %>% mutate_at(vars(employed:religion), to_factor))
+glimpse(women %>% mutate(across(where(is.labelled), to_factor)))
+glimpse(women %>% mutate(across(employed:religion, to_factor)))
 

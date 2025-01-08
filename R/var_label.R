@@ -2,12 +2,13 @@
 #'
 #' @param x a vector or a data.frame
 #' @param value a character string or `NULL` to remove the label
-#'  For data frames, with `var_labels()`, it could also be a named list or a
+#'  For data frames, with `var_label()`, it could also be a named list or a
 #'  character vector of same length as the number of columns in `x`.
 #' @param unlist for data frames, return a named vector instead of a list
 #' @param null_action for data frames, by default `NULL` will be returned for
 #' columns with no variable label. Use `"fill"` to populate with the column name
-#' instead, or `"skip"` to remove such values from the returned list.
+#' instead, `"skip"` to remove such values from the returned list, `"na"` to
+#' populate with `NA` or `"empty"` to populate with an empty string (`""`).
 #' @param recurse if `TRUE`, will apply `var_label()` on packed columns
 #' (see [tidyr::pack()]) to return the variable labels of each sub-column;
 #' otherwise, the label of the group of columns will be returned.
@@ -70,7 +71,8 @@ var_label.default <- function(x, ...) {
 #' @export
 var_label.data.frame <- function(x,
                                  unlist = FALSE,
-                                 null_action = c("keep", "fill", "skip"),
+                                 null_action =
+                                   c("keep", "fill", "skip", "na", "empty"),
                                  recurse = FALSE,
                                  ...) {
   if (recurse) {
@@ -95,6 +97,24 @@ var_label.data.frame <- function(x,
       r,
       names(r),
       SIMPLIFY = FALSE
+    )
+  }
+
+  if (null_action == "empty") {
+    r <- lapply(
+      r,
+      function(x) {
+        if (is.null(x)) "" else x
+      }
+    )
+  }
+
+  if (null_action == "na") {
+    r <- lapply(
+      r,
+      function(x) {
+        if (is.null(x)) NA_character_ else x
+      }
     )
   }
 
@@ -132,15 +152,12 @@ var_label.data.frame <- function(x,
   if (
     (!is.character(value) && !is.null(value)) && !is.list(value) ||
       (is.character(value) && length(value) > 1 && length(value) != ncol(x))
-  ) {
-    stop(
-      paste0(
-        "`value` should be a named list, NULL, a single character string or a ",
-        "character vector of same length than the number of columns in `x`"
-      ),
-      call. = FALSE, domain = "R-labelled"
-    )
-  }
+  )
+    cli::cli_abort(paste(
+      "{.arg value} should be a named list, NULL, a single character string",
+      "or a character vector of same length than the number of columns",
+      "in {.arg x}."
+    ))
   if (is.character(value) && length(value) == 1) {
     value <- as.list(rep(value, ncol(x)))
     names(value) <- names(x)
@@ -158,11 +175,11 @@ var_label.data.frame <- function(x,
   }
 
   if (!all(names(value) %in% names(x))) {
-    missing_names <- stringr::str_c(
-      setdiff(names(value), names(x)),
-      collapse = ", "
-    )
-    stop("some variables not found in x:", missing_names)
+    missing_names <- setdiff(names(value), names(x))
+
+    cli::cli_abort(c(
+      "Can't find variables {.var {missing_names}} in {.arg x}."
+    ))
   }
 
   value <- value[names(value) %in% names(x)]
@@ -209,7 +226,7 @@ get_variable_labels <- var_label
 #'       "something"
 #'     )
 #'   )
-#'   var_labels <- setNames(as.list(description$label), description$name)
+#'   var_labels <- stats::setNames(as.list(description$label), description$name)
 #'   iris_labelled <- iris %>%
 #'     set_variable_labels(.labels = var_labels, .strict = FALSE)
 #'   var_label(iris_labelled)
@@ -243,17 +260,20 @@ set_variable_labels <- function(.data, ..., .labels = NA, .strict = TRUE) {
   if (!identical(.labels, NA)) {
     if (!.strict) {
       .labels <- .labels[intersect(names(.labels), names(.data))]
+    } else {
+      check_character(.labels)
+
     }
     var_label(.data) <- .labels
   }
   values <- rlang::dots_list(...)
   if (length(values) > 0) {
     if (.strict && !all(names(values) %in% names(.data))) {
-      missing_names <- stringr::str_c(
-        setdiff(names(values), names(.data)),
-        collapse = ", "
-      )
-      stop("some variables not found in .data: ", missing_names)
+      missing_names <- setdiff(names(values), names(.data))
+
+      cli::cli_abort(c(
+        "Can't find variables {.var {missing_names}}  in {.arg .data}."
+      ))
     }
 
     for (v in intersect(names(values), names(.data))) {
@@ -279,13 +299,7 @@ get_label_attribute <- function(x) {
 #' @rdname var_label
 #' @export
 set_label_attribute <- function(x, value) {
-  if ((!is.character(value) && !is.null(value)) || length(value) > 1) {
-    stop(
-      "`value` should be a single character string or NULL",
-      call. = FALSE,
-      domain = "R-labelled"
-    )
-  }
+  check_string(value, allow_null = TRUE, allow_na = TRUE)
   attr(x, "label") <- value
   x
 }
