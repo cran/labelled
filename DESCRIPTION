@@ -1,7 +1,7 @@
 Package: labelled
 Type: Package
 Title: Manipulating Labelled Data
-Version: 2.14.0
+Version: 2.14.1
 Maintainer: Joseph Larmarange <joseph@larmarange.net>
 Authors@R: c(
   person("Joseph", "Larmarange", email = "joseph@larmarange.net", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-7097-700X")),
@@ -32,11 +32,12 @@ Language: en-US
 Config/testthat/edition: 3
 Config/Needs/check: memisc
 NeedsCompilation: no
-Packaged: 2025-01-08 08:12:06 UTC; josep
-Author: Joseph Larmarange [aut, cre] (<https://orcid.org/0000-0001-7097-700X>),
+Packaged: 2025-05-06 18:26:13 UTC; josep
+Author: Joseph Larmarange [aut, cre] (ORCID:
+    <https://orcid.org/0000-0001-7097-700X>),
   Daniel Ludecke [ctb],
   Hadley Wickham [ctb],
   Michal Bojanowski [ctb],
   François Briatte [ctb]
 Repository: CRAN
-Date/Publication: 2025-01-08 08:50:02 UTC
+Date/Publication: 2025-05-06 19:00:02 UTC

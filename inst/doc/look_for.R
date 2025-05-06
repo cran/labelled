@@ -49,7 +49,7 @@ look_for(women, details = "full") %>%
   dplyr::glimpse()
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  look_for(women) %>% View()
+# look_for(women) %>% View()
 
 ## -----------------------------------------------------------------------------
 look_for(women) %>% as_tibble()
